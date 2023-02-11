@@ -10,7 +10,9 @@ class KabupatenController extends Controller
 {
     public function index()
     {
-        $kabupatens = \App\Models\Kabupaten::when(request()->q, fn ($value) => $value->where('name ', 'LIKE', '%'  . request()->q . '%'))->latest()->paginate(5);
+        $kabupatens = \App\Models\Kabupaten::when(request()->q, function ($value) {
+            return $value->where('name', 'LIKE', '%' . request()->q . '%');
+        })->latest()->paginate(5);
 
         return \Inertia\Inertia::render("Apps/Kabupaten/index", compact('kabupatens'));
     }

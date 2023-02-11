@@ -26,5 +26,20 @@ Route::prefix("apps")->group(function () {
 
         // kabupaten
         Route::resource("/kabupatens", \App\Http\Controllers\Admin\KabupatenController::class, ['as' => 'apps']);
+
+        // kecamatan
+        Route::resource("/kecamatans", \App\Http\Controllers\Admin\KecamatanController::class, ['as' => 'apps']);
+
+        // kelurahan
+        Route::resource("/kelurahans", \App\Http\Controllers\Admin\KelurahanController::class, ['as' => 'apps']);
+
+        // dusun
+        Route::resource("/dusuns", \App\Http\Controllers\Admin\DusunController::class, ['as' => 'apps']);
+
+        // rw
+        Route::resource("/rws", \App\Http\Controllers\Admin\RWController::class, ['as' => 'apps']);
+
+        // rt
+        Route::resource("/rts", \App\Http\Controllers\Admin\RTController::class, ['as' => 'apps']);
     });
 });

@@ -11,4 +11,9 @@ class Rw extends Model
 
     protected $table = 'rw';
     protected $fillable = ['dusun_id', 'name'];
+
+    public function dusun()
+    {
+        return $this->belongsTo(\App\Models\Dusun::class);
+    }
 }

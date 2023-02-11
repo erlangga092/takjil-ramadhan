@@ -11,4 +11,9 @@ class Kecamatan extends Model
 
     protected $table = 'kecamatan';
     protected $fillable = ['kabupaten_id', 'name'];
+
+    public function kabupaten()
+    {
+        return $this->belongsTo(\App\Models\Kabupaten::class);
+    }
 }

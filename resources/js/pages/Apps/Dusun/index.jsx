@@ -4,21 +4,21 @@ import swal from "sweetalert2";
 import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
 import { LayoutApp } from "../../../layouts";
 
-const Category = ({ kabupatens }) => {
+const Category = ({ dusuns }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
 
   const onSearch = (e) => {
     e.preventDefault();
-    router.get("/apps/kabupatens", {
+    router.get("/apps/dusuns", {
       q: data.search,
     });
   };
 
   const onReset = (e) => {
     e.preventDefault();
-    router.get("/apps/kabupatens", {
+    router.get("/apps/dusuns", {
       q: "",
     });
   };
@@ -37,7 +37,7 @@ const Category = ({ kabupatens }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          router.delete(`/apps/kabupatens/${ID}`);
+          router.delete(`/apps/dusuns/${ID}`);
           swal.fire({
             title: "Deleted",
             text: "Category deleted successfully",
@@ -52,7 +52,7 @@ const Category = ({ kabupatens }) => {
   return (
     <>
       <Head>
-        <title>Kabupaten - Takjil Ramadhan</title>
+        <title>Dusun - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -60,14 +60,14 @@ const Category = ({ kabupatens }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border-0 rounded-3 shadow border-top-purple">
-                  <AppHeaderCard title="KABUPATEN" icon="fa fa-folder" />
+                  <AppHeaderCard title="Dusun" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by kabupaten name..."
+                      placeholder="search by dusun name..."
                       onChange={(e) => setData("search", e.target.value)}
                       onSearch={onSearch}
                       onReset={onReset}
-                      addLink="/apps/kabupatens/create"
+                      addLink="/apps/dusuns/create"
                     />
                     <div className="table-responsive">
                       <table className="table table-bordered table-hover">
@@ -75,30 +75,31 @@ const Category = ({ kabupatens }) => {
                           <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Kelurahan</th>
                             <th scope="col" style={{ width: "20%" }}>
                               Actions
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          {kabupatens?.data?.map((kabupaten, i) => (
-                            <tr key={kabupaten.id}>
+                          {dusuns?.data?.map((dusun, i) => (
+                            <tr key={dusun.id}>
                               <td>
                                 {++i +
-                                  (kabupatens.current_page - 1) *
-                                    kabupatens.per_page}
+                                  (dusuns.current_page - 1) * dusuns.per_page}
                               </td>
-                              <td>{kabupaten.name}</td>
+                              <td>{dusun.name}</td>
+                              <td>{dusun?.kelurahan?.name}</td>
                               <td className="text-center">
                                 <Link
-                                  href={`/apps/kabupatens/${kabupaten.id}/edit`}
+                                  href={`/apps/dusuns/${dusun.id}/edit`}
                                   className="btn btn-success btn-sm me-2"
                                 >
                                   <i className="fa fa-pencil-alt me-1"></i>
                                 </Link>
                                 <button
                                   className="btn btn-danger btn-sm"
-                                  onClick={(e) => onDestroy(e, kabupaten.id)}
+                                  onClick={(e) => onDestroy(e, dusun.id)}
                                 >
                                   <i className="fa fa-trash"></i>
                                 </button>
@@ -108,7 +109,7 @@ const Category = ({ kabupatens }) => {
                         </tbody>
                       </table>
                     </div>
-                    <Pagination links={kabupatens.links} />
+                    <Pagination links={dusuns.links} />
                   </div>
                 </div>
               </div>

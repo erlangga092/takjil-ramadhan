@@ -72,7 +72,7 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/kabupatens") ? "active" : ""
             }`}
             href="/apps/kabupatens"
           >
@@ -84,9 +84,9 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/kecamatans") ? "active" : ""
             }`}
-            href="/apps/categories"
+            href="/apps/kecamatans"
           >
             <CategorySVG />
             <span className="ms-2">Kecamatan</span>
@@ -96,9 +96,9 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/kelurahans") ? "active" : ""
             }`}
-            href="/apps/categories"
+            href="/apps/kelurahans"
           >
             <CategorySVG />
             <span className="ms-2">Kelurahan</span>
@@ -108,9 +108,9 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/dusuns") ? "active" : ""
             }`}
-            href="/apps/categories"
+            href="/apps/dusuns"
           >
             <CategorySVG />
             <span className="ms-2">Dusun</span>
@@ -120,9 +120,9 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/rws") ? "active" : ""
             }`}
-            href="/apps/categories"
+            href="/apps/rws"
           >
             <CategorySVG />
             <span className="ms-2">RW</span>
@@ -132,9 +132,9 @@ const LayoutSidebar = () => {
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/categories") ? "active" : ""
+              appsURL.startsWith("/apps/rts") ? "active" : ""
             }`}
-            href="/apps/categories"
+            href="/apps/rts"
           >
             <CategorySVG />
             <span className="ms-2">RT</span>

@@ -11,4 +11,9 @@ class Rt extends Model
 
     protected $table = 'rt';
     protected $fillable = ['rw_id', 'name'];
+
+    public function rw()
+    {
+        return $this->belongsTo(\App\Models\Rw::class);
+    }
 }

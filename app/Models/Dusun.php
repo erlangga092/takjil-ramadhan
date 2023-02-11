@@ -11,4 +11,9 @@ class Dusun extends Model
 
     protected $table = 'dusun';
     protected $fillable = ['kelurahan_id', 'name'];
+
+    public function kelurahan()
+    {
+        return $this->belongsTo(\App\Models\Kelurahan::class);
+    }
 }
