@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get("/", function () {
+    return \Inertia\Inertia::render("Auth/Login/index");
+})->middleware("guest");
+
+Route::prefix("apps")->group(function () {
+
+    Route::group(["middleware" => ["auth"]], function () {
+
+        // dashboard
+        Route::get("dashboard", \App\Http\Controllers\Admin\DashboardController::class)->name('apps.dashboard');
+
+        // kabupaten
+        Route::resource("/kabupatens", \App\Http\Controllers\Admin\KabupatenController::class, ['as' => 'apps']);
+    });
 });

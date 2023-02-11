@@ -47,7 +47,7 @@ const LayoutSidebar = () => {
           </li>
         )}
 
-        {hasAnyPermission([
+        {/* {hasAnyPermission([
           "categories.index",
           "products.index",
           "customers.index",
@@ -65,132 +65,159 @@ const LayoutSidebar = () => {
               <span className="ms-2">Categories</span>
             </Link>
           </li>
-        )}
+        )} */}
 
-        {hasAnyPermission(["products.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/products") ? "active" : ""
-              }`}
-              href="/apps/products"
-            >
-              <ProductSVG />
-              <span className="ms-2">Products</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-title">WILAYAH</li>
 
-        {hasAnyPermission(["customers.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/customers") ? "active" : ""
-              }`}
-              href="/apps/customers"
-            >
-              <CustomerSVG />
-              <span className="ms-2">Customers</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/kabupatens"
+          >
+            <CategorySVG />
+            <span className="ms-2">Kabupaten</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["transactions.index"]) && (
-          <li className="c-sidebar-nav-title">TRANSACTIONS</li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/categories"
+          >
+            <CategorySVG />
+            <span className="ms-2">Kecamatan</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["transactions.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/transactions") ? "active" : ""
-              }`}
-              href="/apps/transactions"
-            >
-              <TransactionSVG />
-              <span className="ms-2">Transactions</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/categories"
+          >
+            <CategorySVG />
+            <span className="ms-2">Kelurahan</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["sales.index", "profits.index"]) && (
-          <li className="c-sidebar-nav-title">REPORTS</li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/categories"
+          >
+            <CategorySVG />
+            <span className="ms-2">Dusun</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["sales.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/sales") ? "active" : ""
-              }`}
-              href="/apps/sales"
-            >
-              <SalesSVG />
-              <span className="ms-2">Report Sales</span>
-            </Link>
-          </li>
-        )}
-        {hasAnyPermission(["profits.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/profits") ? "active" : ""
-              }`}
-              href="/apps/profits"
-            >
-              <ProfitSVG />
-              <span className="ms-2">Report Profits</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/categories"
+          >
+            <CategorySVG />
+            <span className="ms-2">RW</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission([
-          "roles.index",
-          "permissions.index",
-          "users.index",
-        ]) && <li className="c-sidebar-nav-title">USER MANAGEMENT</li>}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/categories") ? "active" : ""
+            }`}
+            href="/apps/categories"
+          >
+            <CategorySVG />
+            <span className="ms-2">RT</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["roles.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/roles") ? "active" : ""
-              }`}
-              href="/apps/roles"
-            >
-              <RoleSVG />
-              <span className="ms-2">Roles</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-title">TRANSACTIONS</li>
 
-        {hasAnyPermission(["permissions.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/permissions") ? "active" : ""
-              }`}
-              href="/apps/permissions"
-            >
-              <PermissionSVG />
-              <span className="ms-2">Permissions</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/transactions") ? "active" : ""
+            }`}
+            href="/apps/transactions"
+          >
+            <TransactionSVG />
+            <span className="ms-2">Transactions</span>
+          </Link>
+        </li>
 
-        {hasAnyPermission(["users.index"]) && (
-          <li className="c-sidebar-nav-item">
-            <Link
-              className={`c-sidebar-nav-link ${
-                appsURL.startsWith("/apps/users") ? "active" : ""
-              }`}
-              href="/apps/users"
-            >
-              <UserSVG />
-              <span className="ms-2">Users</span>
-            </Link>
-          </li>
-        )}
+        <li className="c-sidebar-nav-title">REPORTS</li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/sales") ? "active" : ""
+            }`}
+            href="/apps/sales"
+          >
+            <SalesSVG />
+            <span className="ms-2">Report Sales</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/profits") ? "active" : ""
+            }`}
+            href="/apps/profits"
+          >
+            <ProfitSVG />
+            <span className="ms-2">Report Profits</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-title">USER MANAGEMENT</li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/roles") ? "active" : ""
+            }`}
+            href="/apps/roles"
+          >
+            <RoleSVG />
+            <span className="ms-2">Roles</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/permissions") ? "active" : ""
+            }`}
+            href="/apps/permissions"
+          >
+            <PermissionSVG />
+            <span className="ms-2">Permissions</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/users") ? "active" : ""
+            }`}
+            href="/apps/users"
+          >
+            <UserSVG />
+            <span className="ms-2">Users</span>
+          </Link>
+        </li>
 
         <div className="pb-5">
           <li className="c-sidebar-nav-divider"></li>
