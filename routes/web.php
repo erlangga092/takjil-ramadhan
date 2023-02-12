@@ -41,5 +41,13 @@ Route::prefix("apps")->group(function () {
 
         // rt
         Route::resource("/rts", \App\Http\Controllers\Admin\RTController::class, ['as' => 'apps']);
+
+        Route::get("/wargas/import", [\App\Http\Controllers\Admin\WargaController::class, "import"])->name('apps.wargas.import');
+
+        // warga
+        Route::resource("/wargas", \App\Http\Controllers\Admin\WargaController::class, ['as' => 'apps']);
+
+        // masjid
+        Route::resource("/masjids", \App\Http\Controllers\Admin\MasjidController::class, ['as' => 'apps']);
     });
 });

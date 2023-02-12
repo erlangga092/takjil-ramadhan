@@ -4,21 +4,21 @@ import swal from "sweetalert2";
 import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
 import { LayoutApp } from "../../../layouts";
 
-const Category = ({ rts }) => {
+const Masjid = ({ masjids }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
 
   const onSearch = (e) => {
     e.preventDefault();
-    router.get("/apps/rts", {
+    router.get("/apps/masjids", {
       q: data.search,
     });
   };
 
   const onReset = (e) => {
     e.preventDefault();
-    router.get("/apps/rts", {
+    router.get("/apps/masjids", {
       q: "",
     });
   };
@@ -37,7 +37,7 @@ const Category = ({ rts }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          router.delete(`/apps/rts/${ID}`);
+          router.delete(`/apps/masjids/${ID}`);
           swal.fire({
             title: "Deleted",
             text: "Rt deleted successfully",
@@ -52,7 +52,7 @@ const Category = ({ rts }) => {
   return (
     <>
       <Head>
-        <title>RT - Takjil Ramadhan</title>
+        <title>Masjid - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -60,49 +60,50 @@ const Category = ({ rts }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border-0 rounded-3 shadow border-top-purple">
-                  <AppHeaderCard title="RT" icon="fa fa-folder" />
+                  <AppHeaderCard title="MASJID" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by rt name..."
+                      placeholder="search by masjid name..."
                       onChange={(e) => setData("search", e.target.value)}
                       onSearch={onSearch}
                       onReset={onReset}
-                      addLink="/apps/rts/create"
+                      addLink="/apps/masjids/create"
                     />
                     <div className="table-responsive">
                       <table className="table table-bordered table-hover">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">RT</th>
-                            <th scope="col">RW</th>
+                            <th scope="col">Nama Masjid</th>
+                            <th scope="col">Kode Masjid</th>
                             <th scope="col">Dusun</th>
-                            <th scope="col">Kelurahan</th>
+                            <th scope="col">Alamat</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {rts?.data?.map((rt, i) => (
-                            <tr key={rt.id}>
+                          {masjids?.data?.map((masjid, i) => (
+                            <tr key={masjid.id}>
                               <td>
-                                {++i + (rts.current_page - 1) * rts.per_page}
+                                {++i +
+                                  (masjids.current_page - 1) * masjids.per_page}
                               </td>
-                              <td>
-                                Kode (<strong>{rt?.id}</strong>) - RT {rt.name}
+                              <td>{masjid?.name}</td>
+                              <td className="text-center fw-bold">
+                                {masjid?.id}
                               </td>
-                              <td>RW {rt?.rw?.name}</td>
-                              <td>{rt?.rw?.dusun?.name}</td>
-                              <td>{rt?.rw?.dusun?.kelurahan?.name}</td>
+                              <td>{masjid?.dusun?.name}</td>
+                              <td style={{ width: "15%" }}>{masjid?.alamat}</td>
                               <td className="text-center">
                                 <Link
-                                  href={`/apps/rts/${rt.id}/edit`}
+                                  href={`/apps/masjids/${masjid.id}/edit`}
                                   className="btn btn-success btn-sm me-2"
                                 >
                                   <i className="fa fa-pencil-alt me-1"></i>
                                 </Link>
                                 <button
                                   className="btn btn-danger btn-sm"
-                                  onClick={(e) => onDestroy(e, rt.id)}
+                                  onClick={(e) => onDestroy(e, masjid.id)}
                                 >
                                   <i className="fa fa-trash"></i>
                                 </button>
@@ -112,7 +113,7 @@ const Category = ({ rts }) => {
                         </tbody>
                       </table>
                     </div>
-                    <Pagination links={rts.links} />
+                    <Pagination links={masjids.links} />
                   </div>
                 </div>
               </div>
@@ -124,4 +125,4 @@ const Category = ({ rts }) => {
   );
 };
 
-export default Category;
+export default Masjid;

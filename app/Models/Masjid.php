@@ -10,5 +10,10 @@ class Masjid extends Model
     use HasFactory;
 
     protected $table = 'masjid';
-    protected $fillable = ['takmir_id', 'dusun_id', 'name', 'alamat'];
+    protected $fillable = ['dusun_id', 'name', 'alamat'];
+
+    public function dusun()
+    {
+        return $this->belongsTo(\App\Models\Dusun::class);
+    }
 }

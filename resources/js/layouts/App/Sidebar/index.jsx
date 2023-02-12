@@ -141,6 +141,30 @@ const LayoutSidebar = () => {
           </Link>
         </li>
 
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/masjids") ? "active" : ""
+            }`}
+            href="/apps/masjids"
+          >
+            <CategorySVG />
+            <span className="ms-2">Masjid</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/wargas") ? "active" : ""
+            }`}
+            href="/apps/wargas"
+          >
+            <CustomerSVG />
+            <span className="ms-2">Warga</span>
+          </Link>
+        </li>
+
         <li className="c-sidebar-nav-title">TRANSACTIONS</li>
 
         <li className="c-sidebar-nav-item">

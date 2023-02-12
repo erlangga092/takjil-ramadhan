@@ -11,4 +11,14 @@ class Warga extends Model
 
     protected $table = 'warga';
     protected $fillable = ['rt_id', 'masjid_id', 'name'];
+
+    public function rt()
+    {
+        return $this->belongsTo(\App\Models\Rt::class);
+    }
+
+    public function masjid()
+    {
+        return $this->belongsTo(\App\Models\Masjid::class);
+    }
 }

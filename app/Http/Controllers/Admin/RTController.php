@@ -9,9 +9,9 @@ class RTController extends Controller
 {
     public function index()
     {
-        $rts = \App\Models\Rt::with('rw')->when(request()->q, function ($value) {
+        $rts = \App\Models\Rt::when(request()->q, function ($value) {
             return $value->where('name', 'LIKE', '%' . request()->q . '%');
-        })->latest()->paginate(5);
+        })->with('rw', 'rw.dusun', 'rw.dusun.kelurahan')->latest()->paginate(5);
 
         return \Inertia\Inertia::render("Apps/Rt/index", compact('rts'));
     }

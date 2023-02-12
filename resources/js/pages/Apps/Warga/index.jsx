@@ -4,21 +4,21 @@ import swal from "sweetalert2";
 import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
 import { LayoutApp } from "../../../layouts";
 
-const Category = ({ rts }) => {
+const Category = ({ wargas }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
 
   const onSearch = (e) => {
     e.preventDefault();
-    router.get("/apps/rts", {
+    router.get("/apps/wargas", {
       q: data.search,
     });
   };
 
   const onReset = (e) => {
     e.preventDefault();
-    router.get("/apps/rts", {
+    router.get("/apps/wargas", {
       q: "",
     });
   };
@@ -37,7 +37,7 @@ const Category = ({ rts }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          router.delete(`/apps/rts/${ID}`);
+          router.delete(`/apps/wargas/${ID}`);
           swal.fire({
             title: "Deleted",
             text: "Rt deleted successfully",
@@ -52,7 +52,7 @@ const Category = ({ rts }) => {
   return (
     <>
       <Head>
-        <title>RT - Takjil Ramadhan</title>
+        <title>Warga - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -60,49 +60,47 @@ const Category = ({ rts }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border-0 rounded-3 shadow border-top-purple">
-                  <AppHeaderCard title="RT" icon="fa fa-folder" />
+                  <AppHeaderCard title="WARGA" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
                       placeholder="search by rt name..."
                       onChange={(e) => setData("search", e.target.value)}
                       onSearch={onSearch}
                       onReset={onReset}
-                      addLink="/apps/rts/create"
+                      addLink="/apps/wargas/create"
+                      importLink="/apps/wargas/import"
                     />
                     <div className="table-responsive">
                       <table className="table table-bordered table-hover">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
+                            <th scope="col">Name</th>
                             <th scope="col">RT</th>
-                            <th scope="col">RW</th>
-                            <th scope="col">Dusun</th>
-                            <th scope="col">Kelurahan</th>
+                            <th scope="col">Masjid</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {rts?.data?.map((rt, i) => (
-                            <tr key={rt.id}>
+                          {wargas?.data?.map((warga, i) => (
+                            <tr key={warga.id}>
                               <td>
-                                {++i + (rts.current_page - 1) * rts.per_page}
+                                {++i +
+                                  (wargas.current_page - 1) * wargas.per_page}
                               </td>
-                              <td>
-                                Kode (<strong>{rt?.id}</strong>) - RT {rt.name}
-                              </td>
-                              <td>RW {rt?.rw?.name}</td>
-                              <td>{rt?.rw?.dusun?.name}</td>
-                              <td>{rt?.rw?.dusun?.kelurahan?.name}</td>
+                              <td>{warga?.name}</td>
+                              <td>{warga?.rt?.name}</td>
+                              <td>{warga?.masjid?.name}</td>
                               <td className="text-center">
                                 <Link
-                                  href={`/apps/rts/${rt.id}/edit`}
+                                  href={`/apps/wargas/${warga.id}/edit`}
                                   className="btn btn-success btn-sm me-2"
                                 >
                                   <i className="fa fa-pencil-alt me-1"></i>
                                 </Link>
                                 <button
                                   className="btn btn-danger btn-sm"
-                                  onClick={(e) => onDestroy(e, rt.id)}
+                                  onClick={(e) => onDestroy(e, warga.id)}
                                 >
                                   <i className="fa fa-trash"></i>
                                 </button>
@@ -112,7 +110,7 @@ const Category = ({ rts }) => {
                         </tbody>
                       </table>
                     </div>
-                    <Pagination links={rts.links} />
+                    <Pagination links={wargas.links} />
                   </div>
                 </div>
               </div>

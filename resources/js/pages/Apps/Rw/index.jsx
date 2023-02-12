@@ -76,6 +76,8 @@ const Category = ({ rws }) => {
                             <th scope="col">No.</th>
                             <th scope="col">RW</th>
                             <th scope="col">Dusun</th>
+                            <th scope="col">Kelurahan</th>
+                            <th scope="col">Kecamatan</th>
                             <th scope="col" style={{ width: "20%" }}>
                               Actions
                             </th>
@@ -89,6 +91,8 @@ const Category = ({ rws }) => {
                               </td>
                               <td>{rw.name}</td>
                               <td>{rw?.dusun?.name}</td>
+                              <td>{rw?.dusun?.kelurahan?.name}</td>
+                              <td>{rw?.dusun?.kelurahan?.kecamatan?.name}</td>
                               <td className="text-center">
                                 <Link
                                   href={`/apps/rws/${rw.id}/edit`}

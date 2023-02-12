@@ -8,6 +8,7 @@ const FormSearch = ({
   onReset,
   addLink = "",
   value,
+  importLink = "",
 }) => {
   return (
     <form onSubmit={onSearch}>
@@ -24,6 +25,11 @@ const FormSearch = ({
         >
           <i className="fa fa-undo me-2"></i> RESET
         </button>
+        {importLink != "" && (
+          <Link href={importLink} className="btn btn-primary input-group-text">
+            <i className="fa fa-file-excel"></i> IMPORT
+          </Link>
+        )}
         <input
           type="text"
           className="form-control"

@@ -9,9 +9,9 @@ class RWController extends Controller
 {
     public function index()
     {
-        $rws = \App\Models\Rw::with('dusun')->when(request()->q, function ($value) {
+        $rws = \App\Models\Rw::when(request()->q, function ($value) {
             return $value->where('name', 'LIKE', '%' . request()->q . '%');
-        })->latest()->paginate(5);
+        })->with('dusun', 'dusun.kelurahan', 'dusun.kelurahan.kecamatan')->latest()->paginate(5);
 
         return \Inertia\Inertia::render("Apps/Rw/index", compact('rws'));
     }
