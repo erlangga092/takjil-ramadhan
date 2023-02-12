@@ -4,7 +4,9 @@ import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
 import Swal from "sweetalert2";
 
-const Show = ({ takjil }) => {
+const Show = ({ tanggal_ramadhan, takjil }) => {
+  console.log(tanggal_ramadhan);
+
   const onDestroy = (e, ID) => {
     e.preventDefault();
     Swal.fire({
@@ -61,21 +63,15 @@ const Show = ({ takjil }) => {
                         <tbody>
                           <tr>
                             <td className="fw-bold" style={{ width: "30%" }}>
-                              Nama Masjid
+                              Tanggal Ramadhan
                             </td>
-                            <td>{takjil?.masjid?.name}</td>
+                            <td>{tanggal_ramadhan?.tanggal}</td>
                           </tr>
                           <tr>
                             <td className="fw-bold">Tahun Ramadhan</td>
-                            <td>{takjil?.tahun_ramadhan?.name}</td>
-                          </tr>
-                          <tr>
-                            <td className="fw-bold">Alamat Dusun</td>
-                            <td>{takjil?.masjid?.dusun?.name}</td>
-                          </tr>
-                          <tr>
-                            <td className="fw-bold">Jumlah Takjil</td>
-                            <td>@{takjil?.jumlah_takjil}</td>
+                            <td>
+                              {tanggal_ramadhan?.takjil?.tahun_ramadhan?.name}
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -88,54 +84,41 @@ const Show = ({ takjil }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border-0 rounded-3 shadow border-top-purple">
-                  <AppHeaderCard
-                    title="TAMBAH TANGGAL RAMADHAN"
-                    icon="fa fa-folder"
-                  />
+                  <AppHeaderCard title="ENROLLE WARGA" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
                       placeholder="search by rt name..."
                       onChange={(e) => setData("search", e.target.value)}
-                      addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/create`}
+                      addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}/create`}
                     />
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
                           <tr>
-                            <th scope="col">No. </th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Jumlah Warga</th>
+                            <th scope="col">
+                              <input type="checkbox" className="form-check" />
+                            </th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">RT</th>
+                            <th scope="col">RW</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {takjil?.tanggal_ramadhans?.data?.map(
-                            (tanggal_ramadhan, i) => (
-                              <tr key={i}>
+                          {tanggal_ramadhan?.takjil_groups?.data?.map(
+                            (v, i) => (
+                              <tr key={v.id}>
                                 <td>
-                                  {++i +
-                                    (takjil?.tanggal_ramadhans?.current_page -
-                                      1) *
-                                      takjil?.tanggal_ramadhans?.per_page}
+                                  <input
+                                    type="checkbox"
+                                    className="form-check"
+                                  />
                                 </td>
-                                <td scope="col">{tanggal_ramadhan?.tanggal}</td>
-                                <td scope="col">0</td>
-                                <td className="text-center">
-                                  <Link
-                                    href={`/apps/takjils/${takjil?.id}/tanggal-ramadhans/${tanggal_ramadhan?.id}`}
-                                    className="btn btn-primary btn-sm me-2"
-                                  >
-                                    <i className="fa fa-plus-circle me-1"></i>
-                                  </Link>
-                                  <Link className="btn btn-success btn-sm me-2">
-                                    <i className="fa fa-pencil-alt me-1"></i>
-                                  </Link>
-                                  <button
-                                    className="btn btn-danger btn-sm"
-                                    onClick={(e) =>
-                                      onDestroy(e, tanggal_ramadhan?.id)
-                                    }
-                                  >
+                                <td>{v?.warga?.name}</td>
+                                <td>{v?.warga?.rt?.name}</td>
+                                <td>{v?.warga?.rt?.rw?.name}</td>
+                                <td className="">
+                                  <button className="btn btn-danger btn-sm">
                                     <i className="fa fa-trash"></i>
                                   </button>
                                 </td>
@@ -144,7 +127,10 @@ const Show = ({ takjil }) => {
                           )}
                         </tbody>
                       </table>
-                      <Pagination links={takjil?.tanggal_ramadhans?.links} />
+
+                      <Pagination
+                        links={tanggal_ramadhan?.takjil_groups?.links}
+                      />
                     </div>
                   </div>
                 </div>

@@ -42,11 +42,11 @@ Route::prefix("apps")->group(function () {
         // rt
         Route::resource("/rts", \App\Http\Controllers\Admin\RTController::class, ['as' => 'apps']);
 
+        // warga
         Route::get("/wargas/import", [\App\Http\Controllers\Admin\WargaController::class, "import"])->name('apps.wargas.import');
 
         Route::post("/wargas/import/store", [\App\Http\Controllers\Admin\WargaController::class, "storeImport"])->name('apps.wargas.storeImport');
 
-        // warga
         Route::resource("/wargas", \App\Http\Controllers\Admin\WargaController::class, ['as' => 'apps']);
 
         // masjid
@@ -55,14 +55,19 @@ Route::prefix("apps")->group(function () {
         // tahun-ramadhan
         Route::resource("/tahun-ramadhans", \App\Http\Controllers\Admin\TahunRamadhanController::class, ['as' => 'apps']);
 
-        // tahun-ramadhan
+        // takjil
         Route::delete("/takjils/{takjil}/tanggal-ramadhans/{tanggalRamadhan}/destroy", [\App\Http\Controllers\Admin\TakjilController::class, 'destroyTanggalRamadhan'])->name('apps.takjils.destroyTanggalRamadhan');
 
         Route::get("/takjils/{takjil}/tanggal-ramadhans/create", [\App\Http\Controllers\Admin\TakjilController::class, 'createTanggalRamadhan'])->name('apps.takjils.createTanggalRamadhan');
 
         Route::post("/takjils/{takjil}/tanggal-ramadhans/store", [\App\Http\Controllers\Admin\TakjilController::class, 'storeTanggalRamadhan'])->name('apps.takjils.storeTanggalRamadhan');
 
-
         Route::resource("/takjils", \App\Http\Controllers\Admin\TakjilController::class, ['as' => 'apps']);
+
+        Route::get("/takjils/{takjil}/tanggal-ramadhans/{tanggalRamadhan}/create", [\App\Http\Controllers\Admin\TakjilController::class, 'createEnrolleWarga'])->name('apps.takjils.ranggal-ramadhans.createEnrolleWarga');
+
+        Route::post("/takjils/{takjil}/tanggal-ramadhans/{tanggalRamadhan}/store", [\App\Http\Controllers\Admin\TakjilController::class, 'storeEnrolleWarga'])->name('apps.takjils.ranggal-ramadhans.storeEnrolleWarga');
+
+        Route::get("/takjils/{takjil}/tanggal-ramadhans/{tanggal_ramadhan}", [\App\Http\Controllers\Admin\TakjilController::class, 'showEnrolleWarga'])->name('apps.takjils.ranggal-ramadhans.showEnrolleWarga');
     });
 });

@@ -12,6 +12,16 @@ class TanggalRamadhan extends Model
     protected $table = 'tanggal_ramadhan';
     protected $fillable = ['takjil_id', 'tanggal'];
 
+    public function takjil()
+    {
+        return $this->belongsTo(\App\Models\Takjil::class);
+    }
+
+    public function takjil_groups()
+    {
+        return $this->hasMany(\App\Models\TakjilGroup::class);
+    }
+
     protected function tanggal(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(

@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Create = ({ kelurahans, errors }) => {
   const [form, setForm] = useState(() => {

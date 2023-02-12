@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\TanggalRamadhan;
 use Illuminate\Http\Request;
 
 class TakjilController extends Controller
 {
     public function index()
     {
-        $takjils = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')->latest()->paginate(10);
+        $takjils = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')
+            ->latest()
+            ->paginate(10);
+
         return \Inertia\Inertia::render('Apps/Takjil/index', compact('takjils'));
     }
 
@@ -40,8 +44,12 @@ class TakjilController extends Controller
 
     public function show($id)
     {
-        $takjil = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')->findOrFail($id);
-        $takjil->setRelation('tanggal_ramadhans', $takjil->tanggal_ramadhans()->orderBy('tanggal', 'ASC')->paginate(10));
+        $takjil = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')
+            ->findOrFail($id);
+
+        $takjil->setRelation('tanggal_ramadhans', $takjil->tanggal_ramadhans()
+            ->orderBy('tanggal', 'ASC')
+            ->paginate(10));
 
         return \Inertia\Inertia::render('Apps/Takjil/Show', compact('takjil'));
     }
@@ -75,5 +83,64 @@ class TakjilController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors($th->getMessage());
         }
+    }
+
+    public function showEnrolleWarga(\App\Models\Takjil $takjil, $id)
+    {
+        $tanggal_ramadhan = \App\Models\TanggalRamadhan::with('takjil.masjid', 'takjil.tahun_ramadhan')->findOrFail($id);
+
+        $tanggal_ramadhan->setRelation('takjil_groups', $tanggal_ramadhan->takjil_groups()->with('warga', 'warga.rt', 'warga.rt.rw')->paginate(10));
+
+        return \Inertia\Inertia::render('Apps/Tanggal-Ramadhan/Show', [
+            'tanggal_ramadhan' => $tanggal_ramadhan,
+            'takjil' => $takjil
+        ]);
+    }
+
+    public function createEnrolleWarga(\App\Models\Takjil $takjil, $id)
+    {
+        $tanggal_ramadhan = \App\Models\TanggalRamadhan::findOrFail($id);
+        // $takjil = $tanggal_ramadhan->takjil;
+        $wargas_enrolled = \App\Models\TakjilGroup::where('takjil_id', $takjil->id)
+            ->where('tanggal_ramadhan_id', $tanggal_ramadhan->id)
+            ->pluck('warga_id')
+            ->all();
+
+        $wargas = \App\Models\Warga::with('rt', 'rt.rw')
+            ->where('masjid_id', $takjil->masjid->id)
+            ->whereNotIn('id', $wargas_enrolled)
+            ->paginate(10);
+
+        return \Inertia\Inertia::render("Apps/Takjil-Group/Create", [
+            'wargas' => $wargas,
+            'takjil' => $takjil,
+            'tanggal_ramadhan' => $tanggal_ramadhan
+        ]);
+    }
+
+    public function storeEnrolleWarga(Request $request, \App\Models\Takjil $takjil, $id)
+    {
+        $this->validate($request, [
+            'takjil_id' => 'required|exists:takjil,id',
+            'tanggal_ramadhan_id' => 'required|exists:tanggal_ramadhan,id',
+            'warga_id' => 'required|exists:warga,id',
+        ]);
+
+        $tanggal_ramadhan = \App\Models\TanggalRamadhan::findOrFail($id);
+
+        foreach ($request->warga_id as $warga_id) {
+            $warga = \App\Models\Warga::findOrFail($warga_id);
+
+            \App\Models\TakjilGroup::create([
+                'takjil_id' => $request->takjil_id,
+                'tanggal_ramadhan_id' => $request->tanggal_ramadhan_id,
+                'warga_id' => $warga->id,
+            ]);
+        }
+
+        return redirect()->route('apps.takjils.ranggal-ramadhans.showEnrolleWarga', [
+            'takjil' => $takjil->id,
+            'tanggal_ramadhan' => $tanggal_ramadhan->id
+        ]);
     }
 }

@@ -1,10 +1,10 @@
+import { AppHeaderCard, FormSearch, Pagination } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import React from "react";
-import swal from "sweetalert2";
-import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
-import { LayoutApp } from "../../../layouts";
+import Swal from "sweetalert2";
 
-const Category = ({ dusuns }) => {
+const Dusun = ({ dusuns }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
@@ -25,28 +25,26 @@ const Category = ({ dusuns }) => {
 
   const onDestroy = (e, ID) => {
     e.preventDefault();
-    swal
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          router.delete(`/apps/dusuns/${ID}`);
-          swal.fire({
-            title: "Deleted",
-            text: "Category deleted successfully",
-            icon: "success",
-            timer: 1000,
-            showConfirmButton: false,
-          });
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.delete(`/apps/dusuns/${ID}`);
+        Swal.fire({
+          title: "Deleted",
+          text: "Dusun deleted successfully",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   return (
@@ -121,4 +119,4 @@ const Category = ({ dusuns }) => {
   );
 };
 
-export default Category;
+export default Dusun;

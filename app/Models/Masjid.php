@@ -16,4 +16,9 @@ class Masjid extends Model
     {
         return $this->belongsTo(\App\Models\Dusun::class);
     }
+
+    public function wargas()
+    {
+        return $this->hasMany(\App\Models\Warga::class);
+    }
 }
