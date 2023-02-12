@@ -141,6 +141,8 @@ const LayoutSidebar = () => {
           </Link>
         </li>
 
+        <li className="c-sidebar-nav-title">RAMADHAN</li>
+
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
@@ -165,17 +167,27 @@ const LayoutSidebar = () => {
           </Link>
         </li>
 
-        <li className="c-sidebar-nav-title">TRANSACTIONS</li>
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/tahun-ramadhans") ? "active" : ""
+            }`}
+            href="/apps/tahun-ramadhans"
+          >
+            <CategorySVG />
+            <span className="ms-2">Tahun Ramadhan</span>
+          </Link>
+        </li>
 
         <li className="c-sidebar-nav-item">
           <Link
             className={`c-sidebar-nav-link ${
-              appsURL.startsWith("/apps/transactions") ? "active" : ""
+              appsURL.startsWith("/apps/takjils") ? "active" : ""
             }`}
-            href="/apps/transactions"
+            href="/apps/takjils"
           >
             <TransactionSVG />
-            <span className="ms-2">Transactions</span>
+            <span className="ms-2">Takjil</span>
           </Link>
         </li>
 

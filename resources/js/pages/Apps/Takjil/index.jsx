@@ -4,21 +4,21 @@ import swal from "sweetalert2";
 import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
 import { LayoutApp } from "../../../layouts";
 
-const Masjid = ({ masjids }) => {
+const Category = ({ takjils }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
 
   const onSearch = (e) => {
     e.preventDefault();
-    router.get("/apps/masjids", {
+    router.get("/apps/takjils", {
       q: data.search,
     });
   };
 
   const onReset = (e) => {
     e.preventDefault();
-    router.get("/apps/masjids", {
+    router.get("/apps/takjils", {
       q: "",
     });
   };
@@ -37,7 +37,7 @@ const Masjid = ({ masjids }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          router.delete(`/apps/masjids/${ID}`);
+          router.delete(`/apps/takjils/${ID}`);
           swal.fire({
             title: "Deleted",
             text: "Rt deleted successfully",
@@ -52,7 +52,7 @@ const Masjid = ({ masjids }) => {
   return (
     <>
       <Head>
-        <title>Masjid - Takjil Ramadhan</title>
+        <title>Takjil - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -60,50 +60,52 @@ const Masjid = ({ masjids }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border-0 rounded-3 shadow border-top-purple">
-                  <AppHeaderCard title="MASJID" icon="fa fa-folder" />
+                  <AppHeaderCard title="TAKJIL" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by masjid name..."
+                      placeholder="search by rt name..."
                       onChange={(e) => setData("search", e.target.value)}
                       onSearch={onSearch}
                       onReset={onReset}
-                      addLink="/apps/masjids/create"
+                      addLink="/apps/takjils/create"
                     />
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
-                            <th scope="col">Nama Masjid</th>
-                            <th scope="col">Kode Masjid</th>
+                            <th scope="col">Masjid</th>
+                            <th scope="col">Tahun Ramadhan</th>
                             <th scope="col">Dusun</th>
-                            <th scope="col">Alamat</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {masjids?.data?.map((masjid, i) => (
-                            <tr key={masjid.id}>
+                          {takjils?.data?.map((takjil, i) => (
+                            <tr key={takjil.id}>
                               <td>
                                 {++i +
-                                  (masjids.current_page - 1) * masjids.per_page}
+                                  (takjils.current_page - 1) * takjils.per_page}
                               </td>
-                              <td>{masjid?.name}</td>
-                              <td className="text-center fw-bold">
-                                {masjid?.id}
-                              </td>
-                              <td>{masjid?.dusun?.name}</td>
-                              <td style={{ width: "15%" }}>{masjid?.alamat}</td>
+                              <td>{takjil?.masjid?.name}</td>
+                              <td>{takjil?.tahun_ramadhan?.name}</td>
+                              <td>{takjil?.masjid?.dusun?.name}</td>
                               <td className="text-center">
                                 <Link
-                                  href={`/apps/masjids/${masjid.id}/edit`}
+                                  href={`/apps/takjils/${takjil.id}`}
+                                  className="btn btn-primary btn-sm me-2"
+                                >
+                                  <i className="fa fa-plus-circle me-1"></i>
+                                </Link>
+                                <Link
+                                  href={`/apps/takjils/${takjil.id}/edit`}
                                   className="btn btn-success btn-sm me-2"
                                 >
                                   <i className="fa fa-pencil-alt me-1"></i>
                                 </Link>
                                 <button
                                   className="btn btn-danger btn-sm"
-                                  onClick={(e) => onDestroy(e, masjid.id)}
+                                  onClick={(e) => onDestroy(e, takjil.id)}
                                 >
                                   <i className="fa fa-trash"></i>
                                 </button>
@@ -113,7 +115,7 @@ const Masjid = ({ masjids }) => {
                         </tbody>
                       </table>
                     </div>
-                    <Pagination links={masjids.links} />
+                    <Pagination links={takjils.links} />
                   </div>
                 </div>
               </div>
@@ -125,4 +127,4 @@ const Masjid = ({ masjids }) => {
   );
 };
 
-export default Masjid;
+export default Category;

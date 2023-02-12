@@ -70,7 +70,7 @@ const Category = ({ kelurahans }) => {
                       addLink="/apps/kelurahans/create"
                     />
                     <div className="table-responsive">
-                      <table className="table table-bordered table-hover">
+                      <table className="table table-hover">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>

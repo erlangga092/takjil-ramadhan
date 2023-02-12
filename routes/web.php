@@ -49,5 +49,11 @@ Route::prefix("apps")->group(function () {
 
         // masjid
         Route::resource("/masjids", \App\Http\Controllers\Admin\MasjidController::class, ['as' => 'apps']);
+
+        // tahun-ramadhan
+        Route::resource("/tahun-ramadhans", \App\Http\Controllers\Admin\TahunRamadhanController::class, ['as' => 'apps']);
+
+        // tahun-ramadhan
+        Route::resource("/takjils", \App\Http\Controllers\Admin\TakjilController::class, ['as' => 'apps']);
     });
 });
