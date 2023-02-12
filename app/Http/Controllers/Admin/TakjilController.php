@@ -41,7 +41,28 @@ class TakjilController extends Controller
     public function show($id)
     {
         $takjil = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')->findOrFail($id);
+        $takjil->setRelation('tanggal_ramadhans', $takjil->tanggal_ramadhans()->orderBy('tanggal', 'ASC')->paginate(10));
 
         return \Inertia\Inertia::render('Apps/Takjil/Show', compact('takjil'));
+    }
+
+    public function createTanggalRamadhan(\App\Models\Takjil $takjil)
+    {
+        return \Inertia\Inertia::render('Apps/Tanggal-Ramadhan/Create', compact('takjil'));
+    }
+
+    public function storeTanggalRamadhan(Request $request, \App\Models\Takjil $takjil)
+    {
+        $this->validate($request, [
+            'takjil_id' => 'required|exists:takjil,id',
+            'tanggal' => 'required'
+        ]);
+
+        \App\Models\TanggalRamadhan::create([
+            'takjil_id' => $request->takjil_id,
+            'tanggal' => date('Y-m-d H:i:s', strtotime($request->tanggal))
+        ]);
+
+        return redirect()->route('apps.takjils.show', $takjil);
     }
 }

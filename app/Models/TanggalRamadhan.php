@@ -11,4 +11,11 @@ class TanggalRamadhan extends Model
 
     protected $table = 'tanggal_ramadhan';
     protected $fillable = ['takjil_id', 'tanggal'];
+
+    protected function tanggal(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn ($value) => \Carbon\Carbon::create($value)->isoFormat('dddd, D MMMM Y')
+        );
+    }
 }

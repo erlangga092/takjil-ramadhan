@@ -21,4 +21,9 @@ class Takjil extends Model
     {
         return $this->belongsTo(\App\Models\TahunRamadhan::class);
     }
+
+    public function tanggal_ramadhans()
+    {
+        return $this->hasMany(\App\Models\TanggalRamadhan::class);
+    }
 }
