@@ -54,9 +54,11 @@ Route::prefix("apps")->group(function () {
         Route::resource("/tahun-ramadhans", \App\Http\Controllers\Admin\TahunRamadhanController::class, ['as' => 'apps']);
 
         // tahun-ramadhan
-        Route::get("/takjils/{takjil}/createTanggalRamadhan", [\App\Http\Controllers\Admin\TakjilController::class, 'createTanggalRamadhan'])->name('apps.takjils.createTanggalRamadhan');
+        Route::delete("/takjils/{takjil}/tanggal-ramadhans/{tanggalRamadhan}/destroy", [\App\Http\Controllers\Admin\TakjilController::class, 'destroyTanggalRamadhan'])->name('apps.takjils.destroyTanggalRamadhan');
 
-        Route::post("/takjils/{takjil}/storeTanggalRamadhan", [\App\Http\Controllers\Admin\TakjilController::class, 'storeTanggalRamadhan'])->name('apps.takjils.storeTanggalRamadhan');
+        Route::get("/takjils/{takjil}/tanggal-ramadhans/create", [\App\Http\Controllers\Admin\TakjilController::class, 'createTanggalRamadhan'])->name('apps.takjils.createTanggalRamadhan');
+
+        Route::post("/takjils/{takjil}/tanggal-ramadhans/store", [\App\Http\Controllers\Admin\TakjilController::class, 'storeTanggalRamadhan'])->name('apps.takjils.storeTanggalRamadhan');
 
 
         Route::resource("/takjils", \App\Http\Controllers\Admin\TakjilController::class, ['as' => 'apps']);

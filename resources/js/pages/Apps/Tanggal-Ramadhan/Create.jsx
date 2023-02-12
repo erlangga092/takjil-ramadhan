@@ -15,7 +15,7 @@ const Warga = ({ takjil, errors }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post(`/apps/takjils/${takjil.id}/storeTanggalRamadhan`, form, {
+    router.post(`/apps/takjils/${takjil.id}/tanggal-ramadhans/store`, form, {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",

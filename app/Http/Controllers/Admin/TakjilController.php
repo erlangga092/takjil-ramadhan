@@ -65,4 +65,15 @@ class TakjilController extends Controller
 
         return redirect()->route('apps.takjils.show', $takjil);
     }
+
+    public function destroyTanggalRamadhan(\App\Models\Takjil $takjil, $id)
+    {
+        try {
+            $tanggal_ramadhan = \App\Models\TanggalRamadhan::findOrFail($id);
+            $tanggal_ramadhan->delete();
+            return redirect()->route('apps.takjils.show', $takjil->id);
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage());
+        }
+    }
 }

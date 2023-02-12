@@ -1,9 +1,48 @@
 import { AppHeaderCard, FormSearch, Pagination } from "@/components";
 import { LayoutApp } from "@/layouts";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import React from "react";
+import Swal from "sweetalert2";
 
 const Show = ({ takjil }) => {
+  const onDestroy = (e, ID) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.delete(
+          `/apps/takjils/${takjil.id}/tanggal-ramadhans/${ID}/destroy`,
+          {
+            onSuccess: () => {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Tanggal Ramadhan Berhasil Dihapus!",
+                icon: "success",
+                timer: 1000,
+                showConfirmButton: false,
+              });
+            },
+            onError: (errors) => {
+              Swal.fire({
+                title: "Failed!",
+                text: errors[0],
+                icon: "failed",
+                showConfirmButton: true,
+              });
+            },
+          }
+        );
+      }
+    });
+  };
+
   return (
     <>
       <Head>
@@ -57,7 +96,7 @@ const Show = ({ takjil }) => {
                     <FormSearch
                       placeholder="search by rt name..."
                       onChange={(e) => setData("search", e.target.value)}
-                      addLink={`/apps/takjils/${takjil.id}/createTanggalRamadhan`}
+                      addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/create`}
                     />
                     <div className="table-responsive">
                       <table className="table table-hover">
@@ -85,7 +124,12 @@ const Show = ({ takjil }) => {
                                   <Link className="btn btn-success btn-sm me-2">
                                     <i className="fa fa-pencil-alt me-1"></i>
                                   </Link>
-                                  <button className="btn btn-danger btn-sm">
+                                  <button
+                                    className="btn btn-danger btn-sm"
+                                    onClick={(e) =>
+                                      onDestroy(e, tanggal_ramadhan?.id)
+                                    }
+                                  >
                                     <i className="fa fa-trash"></i>
                                   </button>
                                 </td>
