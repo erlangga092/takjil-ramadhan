@@ -13,14 +13,22 @@ const Import = ({ errors }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post("/apps/wargas/import", form, {
+    router.post("/apps/wargas/import/store", form, {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Rt saved successfully.",
+          text: "Data Warga Berhasil Diimport!",
           icon: "success",
-          showConfirmButton: false,
           timer: 1000,
+          showConfirmButton: false,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "failed",
+          showConfirmButton: true,
         });
       },
     });

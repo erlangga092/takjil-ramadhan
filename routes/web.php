@@ -44,6 +44,8 @@ Route::prefix("apps")->group(function () {
 
         Route::get("/wargas/import", [\App\Http\Controllers\Admin\WargaController::class, "import"])->name('apps.wargas.import');
 
+        Route::post("/wargas/import/store", [\App\Http\Controllers\Admin\WargaController::class, "storeImport"])->name('apps.wargas.storeImport');
+
         // warga
         Route::resource("/wargas", \App\Http\Controllers\Admin\WargaController::class, ['as' => 'apps']);
 

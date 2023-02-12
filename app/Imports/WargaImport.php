@@ -17,18 +17,18 @@ class WargaImport implements ToModel, WithHeadingRow, WithValidation
     public function model(array $row)
     {
         return new Warga([
-            'name' => $row['nama'],
-            'rt_id' => $row['rt'],
-            'masjid_id' => $row['masjid'],
+            'name' => $row['name'],
+            'rt_id' => (int) $row['rt_id'],
+            'masjid_id' => (int) $row['masjid_id'],
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required',
             'rt_id' => 'required|exists:rt,id',
             'masjid_id' => 'required|exists:masjid,id',
-        ]
+        ];
     }
 }
