@@ -35,14 +35,31 @@ const Dusun = ({ dusuns }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        router.delete(`/apps/dusuns/${ID}`);
-        Swal.fire({
-          title: "Deleted",
-          text: "Dusun deleted successfully",
-          icon: "success",
-          timer: 1000,
-          showConfirmButton: false,
-        });
+        router.post(
+          `/apps/dusuns/${ID}`,
+          {
+            _method: "DELETE",
+          },
+          {
+            onSuccess: () => {
+              Swal.fire({
+                title: "Deleted",
+                text: "Dusun deleted successfully",
+                icon: "success",
+                timer: 1000,
+                showConfirmButton: false,
+              });
+            },
+            onError: (errors) => {
+              Swal.fire({
+                title: "Failed!",
+                text: errors[0],
+                icon: "error",
+                showConfirmButton: true,
+              });
+            },
+          }
+        );
       }
     });
   };

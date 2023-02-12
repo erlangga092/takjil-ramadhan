@@ -40,7 +40,9 @@ class DusunController extends Controller
     public function edit($id)
     {
         $dusun = \App\Models\Dusun::findOrFail($id);
-        return \Inertia\Inertia::render('Apps/Dusun/Edit', compact('dusun'));
+        $kelurahans = \App\Models\Kelurahan::all();
+
+        return \Inertia\Inertia::render('Apps/Dusun/Edit', compact('dusun', 'kelurahans'));
     }
 
     public function update(Request $request, \App\Models\Dusun $Dusun)

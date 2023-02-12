@@ -40,7 +40,9 @@ class KecamatanController extends Controller
     public function edit($id)
     {
         $kecamatan = \App\Models\Kecamatan::findOrFail($id);
-        return \Inertia\Inertia::render('Apps/Kecamatan/Edit', compact('kecamatan'));
+        $kabupatens = \App\Models\Kabupaten::all();
+
+        return \Inertia\Inertia::render('Apps/Kecamatan/Edit', compact('kecamatan', 'kabupatens'));
     }
 
     public function update(Request $request, \App\Models\Kecamatan $kecamatan)

@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Edit = ({ kabupaten, errors }) => {
   const [form, setForm] = useState(() => {
@@ -13,17 +13,32 @@ const Edit = ({ kabupaten, errors }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post("/apps/kabupatens", form, {
-      onSuccess: () => {
-        Swal.fire({
-          title: "Success!",
-          text: "Kabupaten saved successfully.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-        });
+    router.post(
+      `/apps/kabupatens/${kabupaten?.id}`,
+      {
+        _method: "PUT",
+        name: form.name,
       },
-    });
+      {
+        onSuccess: () => {
+          Swal.fire({
+            title: "Success!",
+            text: "Kabupaten updated successfully.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        },
+        onError: (errors) => {
+          Swal.fire({
+            title: "Failed!",
+            text: errors[0],
+            icon: "error",
+            showConfirmButton: true,
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -37,15 +52,15 @@ const Edit = ({ kabupaten, errors }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border border-top-purple rounded-3 shadow">
-                  <AppHeaderCard title="TAMBAH KABUPATEN" icon="fa fa-folder" />
+                  <AppHeaderCard title="EDIT KABUPATEN" icon="fa fa-folder" />
                   <div className="card-body">
                     <form onSubmit={onSubmit}>
                       <InputApp
                         value={form.name}
                         name="name"
                         type="text"
-                        placeholder="Kabupaten Name"
-                        label="Kabupaten Name"
+                        placeholder="Nama kabupaten"
+                        label="Nama Kabupaten"
                         onChange={(e) =>
                           setForm({
                             ...form,

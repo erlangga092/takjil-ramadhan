@@ -1,29 +1,46 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
-const Edit = ({ kabupaten, errors }) => {
+const Edit = ({ kecamatan, kabupatens, errors }) => {
   const [form, setForm] = useState(() => {
     return {
-      name: kabupaten.name,
+      name: kecamatan?.name,
+      kabupaten_id: kecamatan?.kabupaten_id,
     };
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post("/apps/kabupatens", form, {
-      onSuccess: () => {
-        Swal.fire({
-          title: "Success!",
-          text: "Kabupaten saved successfully.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-        });
+    router.post(
+      `/apps/kecamatans/${kecamatan?.id}`,
+      {
+        _method: "PUT",
+        name: form.name,
+        kabupaten_id: form.kabupaten_id,
       },
-    });
+      {
+        onSuccess: () => {
+          Swal.fire({
+            title: "Success!",
+            text: "Kecamatan updated successfully.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        },
+        onError: (errors) => {
+          Swal.fire({
+            title: "Failed!",
+            text: errors[0],
+            icon: "error",
+            showConfirmButton: true,
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -37,15 +54,15 @@ const Edit = ({ kabupaten, errors }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border border-top-purple rounded-3 shadow">
-                  <AppHeaderCard title="TAMBAH KABUPATEN" icon="fa fa-folder" />
+                  <AppHeaderCard title="EDIT KABUPATEN" icon="fa fa-folder" />
                   <div className="card-body">
                     <form onSubmit={onSubmit}>
                       <InputApp
                         value={form.name}
                         name="name"
                         type="text"
-                        placeholder="Kabupaten Name"
-                        label="Kabupaten Name"
+                        placeholder="Nama kecamatan"
+                        label="Kecamatan"
                         onChange={(e) =>
                           setForm({
                             ...form,
@@ -54,6 +71,34 @@ const Edit = ({ kabupaten, errors }) => {
                         }
                         isError={errors?.name}
                       />
+
+                      <div className="mb-3">
+                        <select
+                          className="form-select"
+                          onChange={(e) =>
+                            setForm({
+                              ...form,
+                              kabupaten_id: e.target.value,
+                            })
+                          }
+                        >
+                          {kabupatens?.map((kabupaten, i) => (
+                            <option
+                              key={kabupaten?.id}
+                              value={kabupaten?.id}
+                              selected={form?.kabupaten_id == kabupaten?.id}
+                            >
+                              {kabupaten?.name}
+                            </option>
+                          ))}
+                        </select>
+
+                        {errors?.kabupaten_id && (
+                          <div className="alert alert-danger mt-2">
+                            {errors?.kabupaten_id}
+                          </div>
+                        )}
+                      </div>
 
                       <div className="row">
                         <div className="col-12">
