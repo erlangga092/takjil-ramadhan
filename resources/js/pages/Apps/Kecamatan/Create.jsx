@@ -18,7 +18,7 @@ const Create = ({ kabupatens, errors }) => {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Kabupaten saved successfully.",
+          text: "Kecamatan saved successfully.",
           icon: "success",
           showConfirmButton: false,
           timer: 1000,

@@ -62,7 +62,7 @@ const Edit = ({ dusun, kelurahans, errors }) => {
                         name="name"
                         type="text"
                         placeholder="Nama dusun"
-                        label="Nama Dusun"
+                        label="Dusun"
                         onChange={(e) =>
                           setForm({
                             ...form,
@@ -73,7 +73,7 @@ const Edit = ({ dusun, kelurahans, errors }) => {
                       />
 
                       <div className="mb-3">
-                        <label htmlFor="">Nama Kelurahan</label>
+                        <label htmlFor="">Kelurahan</label>
                         <select
                           value={form.kelurahan_id}
                           className="form-select"

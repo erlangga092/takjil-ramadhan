@@ -38,4 +38,40 @@ class MasjidController extends Controller
 
         return redirect()->route('apps.masjids.index');
     }
+
+    public function edit($id)
+    {
+        $masjid = \App\Models\Masjid::findOrFail($id);
+        $dusuns = \App\Models\Dusun::all();
+
+        return \Inertia\Inertia::render('Apps/Masjid/Create', compact('dusuns', 'masjid'));
+    }
+
+    public function update(Request $request, \App\Models\Masjid $masjid)
+    {
+        $this->validate($request, [
+            'dusun_id' => 'required|exists:dusun,id',
+            'name' => 'required',
+            'alamat' => 'required'
+        ]);
+
+        $masjid->update([
+            'dusun_id' => $request->dusun_id,
+            'name' => $request->name,
+            'alamat' => $request->alamat
+        ]);
+
+        return redirect()->route('apps.masjids.index');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $masjid = \App\Models\Masjid::findOrFail($id);
+            $masjid->delete();
+            return redirect()->route('apps.masjids.index');
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage());
+        }
+    }
 }

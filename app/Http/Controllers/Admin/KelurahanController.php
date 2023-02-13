@@ -39,8 +39,10 @@ class KelurahanController extends Controller
 
     public function edit($id)
     {
-        $Kelurahan = \App\Models\Kelurahan::findOrFail($id);
-        return \Inertia\Inertia::render('Apps/Kelurahan/Edit', compact('Kelurahan'));
+        $kelurahan = \App\Models\Kelurahan::findOrFail($id);
+        $kecamatans = \App\Models\Kecamatan::all();
+
+        return \Inertia\Inertia::render('Apps/Kelurahan/Edit', compact('kelurahan', 'kecamatans'));
     }
 
     public function update(Request $request, \App\Models\Kelurahan $Kelurahan)

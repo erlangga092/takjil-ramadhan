@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Create = ({ kecamatans, errors }) => {
   const [form, setForm] = useState(() => {
@@ -18,10 +18,18 @@ const Create = ({ kecamatans, errors }) => {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Kabupaten saved successfully.",
+          text: "Kelurahan saved successfully.",
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "error",
+          showConfirmButton: true,
         });
       },
     });
@@ -30,7 +38,7 @@ const Create = ({ kecamatans, errors }) => {
   return (
     <>
       <Head>
-        <title>Add New Kecamatan - Takjil Ramadhan</title>
+        <title>Tambah Kelurahan - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">

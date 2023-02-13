@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Create = ({ dusuns, errors }) => {
   const [form, setForm] = useState(() => {
@@ -23,6 +23,14 @@ const Create = ({ dusuns, errors }) => {
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "error",
+          showConfirmButton: true,
         });
       },
     });
@@ -46,7 +54,7 @@ const Create = ({ dusuns, errors }) => {
                         name="name"
                         type="text"
                         placeholder="Nama Masjid"
-                        label="RT"
+                        label="Masjid"
                         onChange={(e) =>
                           setForm({
                             ...form,
@@ -97,6 +105,12 @@ const Create = ({ dusuns, errors }) => {
                             })
                           }
                         ></textarea>
+
+                        {errors?.alamat && (
+                          <div className="alert alert-danger mt-3">
+                            {errors?.alamat}
+                          </div>
+                        )}
                       </div>
 
                       <div className="row">

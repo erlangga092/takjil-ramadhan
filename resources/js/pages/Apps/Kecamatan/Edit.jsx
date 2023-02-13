@@ -73,6 +73,7 @@ const Edit = ({ kecamatan, kabupatens, errors }) => {
                       />
 
                       <div className="mb-3">
+                        <label htmlFor="">Kabupaten</label>
                         <select
                           className="form-select"
                           onChange={(e) =>
