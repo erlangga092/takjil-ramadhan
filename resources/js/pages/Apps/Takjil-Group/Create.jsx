@@ -1,4 +1,4 @@
-import { AppHeaderCard, Pagination } from "@/components";
+import { AppHeaderCard, Pagination, FormSearch } from "@/components";
 import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
@@ -52,9 +52,8 @@ const Show = ({ errors, wargas, takjil, tanggal_ramadhan }) => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onEnrolle = (e) => {
     e.preventDefault();
-    console.log(form);
     router.post(
       `/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}/store`,
       {
@@ -97,60 +96,51 @@ const Show = ({ errors, wargas, takjil, tanggal_ramadhan }) => {
                 <div className="card border-0 rounded-3 shadow border-top-purple">
                   <AppHeaderCard title="ENROLLE WARGA" icon="fa fa-folder" />
                   <div className="card-body">
-                    <form onSubmit={onSubmit}>
-                      <div className="row mb-3">
-                        <div className="col-12">
-                          <button className="btn btn-primary shadow-sm rounded-sm">
-                            SAVE
-                          </button>
-                        </div>
-                      </div>
-
-                      {errors?.warga_id && (
-                        <div className="alert alert-danger mb-3">
-                          {errors?.warga_id}
-                        </div>
-                      )}
-
-                      <div className="table-responsive">
-                        <table className="table table-hover">
-                          <thead>
-                            <tr>
-                              <th scope="col">
+                    <FormSearch
+                      placeholder="search by rt name..."
+                      onChange={(e) => setData("search", e.target.value)}
+                      onEnrolle={(e) => onEnrolle(e)}
+                      isError={errors?.warga_id}
+                      onBack={`/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}`}
+                    />
+                    <div className="table-responsive">
+                      <table className="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">
+                              <input
+                                type="checkbox"
+                                className="form-check check-enrolle"
+                                onChange={(e) => onCheckAll(e)}
+                              />
+                            </th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">RT</th>
+                            <th scope="col">RW</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {wargas?.data?.map((warga, i) => (
+                            <tr key={i}>
+                              <td>
                                 <input
                                   type="checkbox"
                                   className="form-check check-enrolle"
-                                  onChange={(e) => onCheckAll(e)}
+                                  id={warga.id}
+                                  onChange={(e) => onCheck(e)}
+                                  value={warga.id}
                                 />
-                              </th>
-                              <th scope="col">Nama</th>
-                              <th scope="col">RT</th>
-                              <th scope="col">RW</th>
+                              </td>
+                              <td>{warga?.name}</td>
+                              <td>{warga?.rt?.name}</td>
+                              <td>{warga?.rt?.rw?.name}</td>
                             </tr>
-                          </thead>
-                          <tbody>
-                            {wargas?.data?.map((warga, i) => (
-                              <tr key={i}>
-                                <td>
-                                  <input
-                                    type="checkbox"
-                                    className="form-check check-enrolle"
-                                    id={warga.id}
-                                    onChange={(e) => onCheck(e)}
-                                    value={warga.id}
-                                  />
-                                </td>
-                                <td>{warga?.name}</td>
-                                <td>{warga?.rt?.name}</td>
-                                <td>{warga?.rt?.rw?.name}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                          ))}
+                        </tbody>
+                      </table>
 
-                        <Pagination links={wargas.links} />
-                      </div>
-                    </form>
+                      <Pagination links={wargas.links} />
+                    </div>
                   </div>
                 </div>
               </div>

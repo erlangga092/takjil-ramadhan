@@ -162,7 +162,7 @@ const LayoutSidebar = () => {
             }`}
             href="/apps/wargas"
           >
-            <CustomerSVG />
+            <CategorySVG />
             <span className="ms-2">Warga</span>
           </Link>
         </li>
@@ -186,12 +186,12 @@ const LayoutSidebar = () => {
             }`}
             href="/apps/takjils"
           >
-            <TransactionSVG />
+            <CategorySVG />
             <span className="ms-2">Takjil</span>
           </Link>
         </li>
 
-        <li className="c-sidebar-nav-title">REPORTS</li>
+        {/* <li className="c-sidebar-nav-title">REPORTS</li>
 
         <li className="c-sidebar-nav-item">
           <Link
@@ -253,7 +253,7 @@ const LayoutSidebar = () => {
             <UserSVG />
             <span className="ms-2">Users</span>
           </Link>
-        </li>
+        </li> */}
 
         <div className="pb-5">
           <li className="c-sidebar-nav-divider"></li>

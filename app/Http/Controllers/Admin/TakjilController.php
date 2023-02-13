@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TanggalRamadhan;
 use Illuminate\Http\Request;
 
 class TakjilController extends Controller
@@ -48,8 +47,10 @@ class TakjilController extends Controller
             ->findOrFail($id);
 
         $takjil->setRelation('tanggal_ramadhans', $takjil->tanggal_ramadhans()
+            ->with('takjil_groups.warga')
             ->orderBy('tanggal', 'ASC')
             ->paginate(10));
+
 
         return \Inertia\Inertia::render('Apps/Takjil/Show', compact('takjil'));
     }
@@ -100,9 +101,8 @@ class TakjilController extends Controller
     public function createEnrolleWarga(\App\Models\Takjil $takjil, $id)
     {
         $tanggal_ramadhan = \App\Models\TanggalRamadhan::findOrFail($id);
-        // $takjil = $tanggal_ramadhan->takjil;
         $wargas_enrolled = \App\Models\TakjilGroup::where('takjil_id', $takjil->id)
-            ->where('tanggal_ramadhan_id', $tanggal_ramadhan->id)
+            // ->where('tanggal_ramadhan_id', $tanggal_ramadhan->id)
             ->pluck('warga_id')
             ->all();
 
@@ -142,5 +142,37 @@ class TakjilController extends Controller
             'takjil' => $takjil->id,
             'tanggal_ramadhan' => $tanggal_ramadhan->id
         ]);
+    }
+
+    public function destroyEnrolleWarga(
+        \App\Models\Takjil $takjil,
+        \App\Models\TanggalRamadhan $tanggal_ramadhan,
+        \App\Models\TakjilGroup $takjil_group
+    ) {
+        try {
+            $takjil_group->delete();
+            return redirect()->route('apps.takjils.ranggal-ramadhans.showEnrolleWarga', [
+                'takjil' => $takjil->id,
+                'tanggal_ramadhan' => $tanggal_ramadhan->id
+            ]);
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage());
+        }
+    }
+
+    public function destroyEnrolleWargaAll(
+        Request $request,
+        \App\Models\Takjil $takjil,
+        \App\Models\TanggalRamadhan $tanggal_ramadhan,
+    ) {
+        try {
+            \App\Models\TakjilGroup::whereIn('id', $request->takjil_group_id)->delete();
+            return redirect()->route('apps.takjils.ranggal-ramadhans.showEnrolleWarga', [
+                'takjil' => $takjil->id,
+                'tanggal_ramadhan' => $tanggal_ramadhan->id
+            ]);
+        } catch (\Throwable $th) {
+            return back()->withErrors($th->getMessage());
+        }
     }
 }

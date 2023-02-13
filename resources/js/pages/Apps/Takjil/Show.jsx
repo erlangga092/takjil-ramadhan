@@ -5,6 +5,7 @@ import React from "react";
 import Swal from "sweetalert2";
 
 const Show = ({ takjil }) => {
+  console.log(takjil);
   const onDestroy = (e, ID) => {
     e.preventDefault();
     Swal.fire({
@@ -119,7 +120,9 @@ const Show = ({ takjil }) => {
                                       takjil?.tanggal_ramadhans?.per_page}
                                 </td>
                                 <td scope="col">{tanggal_ramadhan?.tanggal}</td>
-                                <td scope="col">0</td>
+                                <td scope="col">
+                                  {tanggal_ramadhan?.takjil_groups?.length}
+                                </td>
                                 <td className="text-center">
                                   <Link
                                     href={`/apps/takjils/${takjil?.id}/tanggal-ramadhans/${tanggal_ramadhan?.id}`}
