@@ -24,6 +24,14 @@ const Create = ({ rws, errors }) => {
           timer: 1000,
         });
       },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "error",
+          showConfirmButton: true,
+        });
+      },
     });
   };
 

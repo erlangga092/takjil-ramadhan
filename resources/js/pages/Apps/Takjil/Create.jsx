@@ -1,10 +1,10 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
-const Warga = ({ masjids, tahun_ramadhans, errors }) => {
+const Create = ({ masjids, tahun_ramadhans, errors }) => {
   const [form, setForm] = useState(() => {
     return {
       jumlah_takjil: 0,
@@ -19,10 +19,18 @@ const Warga = ({ masjids, tahun_ramadhans, errors }) => {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Rt saved successfully.",
+          text: "Takjil saved successfully.",
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "error",
+          showConfirmButton: true,
         });
       },
     });
@@ -31,7 +39,7 @@ const Warga = ({ masjids, tahun_ramadhans, errors }) => {
   return (
     <>
       <Head>
-        <title>Tambah Warga - Takjil Ramadhan</title>
+        <title>Tambah Takjil - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -39,7 +47,7 @@ const Warga = ({ masjids, tahun_ramadhans, errors }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border border-top-purple rounded-3 shadow">
-                  <AppHeaderCard title="TAMBAH WARGA" icon="fa fa-folder" />
+                  <AppHeaderCard title="TAMBAH TAKJIL" icon="fa fa-folder" />
                   <div className="card-body">
                     <form onSubmit={onSubmit}>
                       <InputApp
@@ -132,4 +140,4 @@ const Warga = ({ masjids, tahun_ramadhans, errors }) => {
   );
 };
 
-export default Warga;
+export default Create;

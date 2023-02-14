@@ -40,14 +40,16 @@ class RWController extends Controller
     public function edit($id)
     {
         $rw = \App\Models\Rw::findOrFail($id);
-        return \Inertia\Inertia::render('Apps/Rw/Edit', compact('rw'));
+        $dusuns = \App\Models\Dusun::all();
+
+        return \Inertia\Inertia::render('Apps/Rw/Edit', compact('rw', 'dusuns'));
     }
 
     public function update(Request $request, \App\Models\Rw $rw)
     {
         $this->validate($request, [
             'name' => 'required',
-            'kelurahan_id' => 'required'
+            'dusun_id' => 'required|exists:dusun,id"'
         ]);
 
         $rw->update([

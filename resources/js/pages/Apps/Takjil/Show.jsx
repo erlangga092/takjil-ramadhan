@@ -99,6 +99,10 @@ const Show = ({ takjil }) => {
                       onChange={(e) => setData("search", e.target.value)}
                       addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/create`}
                     />
+                    <a href={`/apps/takjils/${takjil?.id}/pdf`} target="_blank">
+                      {" "}
+                      PDF
+                    </a>
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>

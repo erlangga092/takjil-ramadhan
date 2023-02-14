@@ -40,14 +40,16 @@ class RTController extends Controller
     public function edit($id)
     {
         $rt = \App\Models\Rt::findOrFail($id);
-        return \Inertia\Inertia::render('Apps/Rt/Edit', compact('rt'));
+        $rws = \App\Models\Rw::all();
+
+        return \Inertia\Inertia::render('Apps/Rt/Edit', compact('rt', 'rws'));
     }
 
     public function update(Request $request, \App\Models\Rt $rt)
     {
         $this->validate($request, [
             'name' => 'required',
-            'kelurahan_id' => 'required'
+            'rw_id' => 'required|exists:rw,id'
         ]);
 
         $rt->update([

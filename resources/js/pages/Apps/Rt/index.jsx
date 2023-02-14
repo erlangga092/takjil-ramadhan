@@ -1,10 +1,10 @@
+import { AppHeaderCard, FormSearch, Pagination } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, Link, router, useForm } from "@inertiajs/react";
 import React from "react";
-import swal from "sweetalert2";
-import { AppHeaderCard, FormSearch, Pagination } from "../../../components";
-import { LayoutApp } from "../../../layouts";
+import Swal from "sweetalert2";
 
-const Category = ({ rts }) => {
+const RT = ({ rts }) => {
   const { data, setData } = useForm({
     search: "" || new URL(document.location).searchParams.get("q"),
   });
@@ -25,28 +25,43 @@ const Category = ({ rts }) => {
 
   const onDestroy = (e, ID) => {
     e.preventDefault();
-    swal
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          router.delete(`/apps/rts/${ID}`);
-          swal.fire({
-            title: "Deleted",
-            text: "Rt deleted successfully",
-            icon: "success",
-            timer: 1000,
-            showConfirmButton: false,
-          });
-        }
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.post(
+          `/apps/rts/${ID}`,
+          {
+            _method: "DELETE",
+          },
+          {
+            onSuccess: () => {
+              Swal.fire({
+                title: "Deleted",
+                text: "RT deleted successfully",
+                icon: "success",
+                timer: 1000,
+                showConfirmButton: false,
+              });
+            },
+            onError: (errors) => {
+              Swal.fire({
+                title: "Failed!",
+                text: errors[0],
+                icon: "error",
+                showConfirmButton: true,
+              });
+            },
+          }
+        );
+      }
+    });
   };
 
   return (
@@ -124,4 +139,4 @@ const Category = ({ rts }) => {
   );
 };
 
-export default Category;
+export default RT;

@@ -73,5 +73,7 @@ Route::prefix("apps")->group(function () {
         Route::delete('/takjils/{takjil}/tanggal-ramadhans/{tanggal_ramadhan}/{takjil_group}/destroy', [\App\Http\Controllers\Admin\TakjilController::class, 'destroyEnrolleWarga'])->name('apps.takjils.tanggal-ramadhans.destroyEnrroleWarga');
 
         Route::delete('/takjils/{takjil}/tanggal-ramadhans/{tanggal_ramadhan}/destroy-all', [\App\Http\Controllers\Admin\TakjilController::class, 'destroyEnrolleWargaAll'])->name('apps.takjils.tanggal-ramadhans.destroyEnrroleWargaAll');
+
+        Route::get('/takjils/{takjil}/pdf', [\App\Http\Controllers\Admin\TakjilController::class, 'pdf'])->name('apps.takjils.pdf');
     });
 });

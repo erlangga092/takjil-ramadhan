@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class TakjilController extends Controller
 {
@@ -41,6 +43,36 @@ class TakjilController extends Controller
         return redirect()->route('apps.takjils.index');
     }
 
+    public function edit($id)
+    {
+        $takjil = \App\Models\Takjil::findOrFail($id);
+        $masjids = \App\Models\Masjid::with('dusun')->get();
+        $tahun_ramadhans = \App\Models\TahunRamadhan::all();
+
+        return \Inertia\Inertia::render('Apps/Takjil/Edit', [
+            'masjids' => $masjids,
+            'tahun_ramadhans' => $tahun_ramadhans,
+            'takjil' => $takjil
+        ]);
+    }
+
+    public function update(Request $request, \App\Models\Takjil $takjil)
+    {
+        $this->validate($request, [
+            'masjid_id' => 'required|exists:masjid,id',
+            'tahun_ramadhan_id' => 'required|exists:tahun_ramadhan,id',
+            'jumlah_takjil' => 'required'
+        ]);
+
+        $takjil->update([
+            'masjid_id' => $request->masjid_id,
+            'tahun_ramadhan_id' => $request->tahun_ramadhan_id,
+            'jumlah_takjil' => $request->jumlah_takjil
+        ]);
+
+        return redirect()->route('apps.takjils.index');
+    }
+
     public function show($id)
     {
         $takjil = \App\Models\Takjil::with('masjid', 'tahun_ramadhan', 'masjid.dusun')
@@ -49,7 +81,7 @@ class TakjilController extends Controller
         $takjil->setRelation('tanggal_ramadhans', $takjil->tanggal_ramadhans()
             ->with('takjil_groups.warga')
             ->orderBy('tanggal', 'ASC')
-            ->paginate(10));
+            ->paginate(31));
 
 
         return \Inertia\Inertia::render('Apps/Takjil/Show', compact('takjil'));
@@ -174,5 +206,52 @@ class TakjilController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors($th->getMessage());
         }
+    }
+
+    public function pdf(\App\Models\Takjil $takjil)
+    {
+        $value = DB::select(DB::raw("SELECT
+            tr.tanggal as tanggal,
+            t.id as t_id,
+            w.name as warga,
+            rt.name as RT,
+            rw.name as RW
+        from takjil_group as tg
+            JOIN takjil as t on t.id = tg.takjil_id
+            JOIN tanggal_ramadhan as tr on tg.tanggal_ramadhan_id = tr.id
+            JOIN warga as w on w.id = tg.warga_id
+            JOIN rt on rt.id = w.rt_id
+            JOIN rw on rw.id = rt.rw_id
+        WHERE t.id = 1
+        ORDER BY tanggal ASC"));
+
+        $data = array_group_by($value, "tanggal");
+        $length = 6;
+        $data_split = array();
+
+        $k = 0;
+
+        foreach ($data as $key => $item) {
+            $data_split[$k][$key] = $data[$key];
+            if (count($data_split[$k]) > $length) {
+                $k++;
+                $data_split[$k][$key] = $data[$key];
+            }
+        }
+
+        // return response()->json([
+        //     'data' => $data_split
+        // ]);
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("exports.takjil", compact('data_split'));
+        $pdf->setPaper('A4', 'portrait');
+        $output = $pdf->output();
+
+        return new Response($output, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>  'inline; filename="takjil.pdf"',
+        ]);
+
+        // return $pdf->download('takjil.pdf');
     }
 }

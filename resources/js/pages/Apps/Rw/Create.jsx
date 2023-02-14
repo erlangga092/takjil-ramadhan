@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Create = ({ dusuns, errors }) => {
   const [form, setForm] = useState(() => {
@@ -22,6 +22,14 @@ const Create = ({ dusuns, errors }) => {
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "error",
+          showConfirmButton: true,
         });
       },
     });
@@ -45,7 +53,7 @@ const Create = ({ dusuns, errors }) => {
                         name="name"
                         type="text"
                         placeholder="Nama RW"
-                        label="Dusun"
+                        label="RW"
                         onChange={(e) =>
                           setForm({
                             ...form,

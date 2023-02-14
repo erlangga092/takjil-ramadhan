@@ -1,35 +1,49 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
-const Edit = ({ kabupaten, errors }) => {
+const Edit = ({ tahun_ramadhan }) => {
   const [form, setForm] = useState(() => {
     return {
-      name: kabupaten.name,
+      name: tahun_ramadhan?.name,
     };
   });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.post("/apps/kabupatens", form, {
-      onSuccess: () => {
-        Swal.fire({
-          title: "Success!",
-          text: "Kabupaten saved successfully.",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1000,
-        });
+    router.post(
+      `/apps/tahun-ramadhans/${tahun_ramadhan?.id}`,
+      {
+        _method: "PUT",
       },
-    });
+      {
+        onSuccess: () => {
+          Swal.fire({
+            title: "Success!",
+            text: "Tahun Ramadhan updated successfully.",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        },
+        onError: (errors) => {
+          Swal.fire({
+            title: "Failed!",
+            text: errors[0],
+            icon: "error",
+            showConfirmButton: true,
+          });
+        },
+      }
+    );
   };
 
   return (
     <>
       <Head>
-        <title>Edit Kabupaten - Takjil Ramadhan</title>
+        <title>Edit Tahun Ramadhan - Takjil Ramadhan</title>
       </Head>
       <LayoutApp>
         <main className="c-main">
@@ -37,15 +51,18 @@ const Edit = ({ kabupaten, errors }) => {
             <div className="row">
               <div className="col-md-12">
                 <div className="card border border-top-purple rounded-3 shadow">
-                  <AppHeaderCard title="TAMBAH KABUPATEN" icon="fa fa-folder" />
+                  <AppHeaderCard
+                    title="EDIT TAHUN RAMADHAN"
+                    icon="fa fa-folder"
+                  />
                   <div className="card-body">
                     <form onSubmit={onSubmit}>
                       <InputApp
                         value={form.name}
                         name="name"
                         type="text"
-                        placeholder="Kabupaten Name"
-                        label="Kabupaten Name"
+                        placeholder="Tahun ramadhan"
+                        label="Tahun Ramadhan"
                         onChange={(e) =>
                           setForm({
                             ...form,

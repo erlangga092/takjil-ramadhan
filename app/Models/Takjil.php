@@ -26,4 +26,9 @@ class Takjil extends Model
     {
         return $this->hasMany(\App\Models\TanggalRamadhan::class);
     }
+
+    public function takjil_groups()
+    {
+        return $this->hasMany(\App\Models\TakjilGroup::class);
+    }
 }

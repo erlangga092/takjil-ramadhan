@@ -1,7 +1,7 @@
 import { AppHeaderCard, FormSearch, Pagination } from "@/components";
 import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 const Show = ({ tanggal_ramadhan, takjil }) => {
@@ -193,7 +193,7 @@ const Show = ({ tanggal_ramadhan, takjil }) => {
                             <th scope="col">
                               <input
                                 type="checkbox"
-                                className="form-check check-derolle check-all"
+                                className="form-check check-derolle check-all pe-auto"
                                 onChange={(e) => onCheckAll(e)}
                               />
                             </th>
