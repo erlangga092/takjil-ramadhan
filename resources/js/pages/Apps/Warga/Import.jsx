@@ -1,8 +1,8 @@
+import { AppHeaderCard } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Import = ({ errors }) => {
   const [form, setForm] = useState(() => {
@@ -90,7 +90,7 @@ const Import = ({ errors }) => {
                       <div className="row">
                         <div className="col-12">
                           <button className="btn btn-primary shadow-sm rounded-sm">
-                            SAVE
+                            SUBMIT
                           </button>
                           <button className="btn btn-warning shadow-sm rounded-sm ms-3">
                             RESET

@@ -42,7 +42,7 @@ const TahunRamadhan = ({ tahun_ramadhans }) => {
           },
           {
             onSuccess: () => {
-              swal.fire({
+              Swal.fire({
                 title: "Deleted",
                 text: "Tahun Ramadhan deleted successfully",
                 icon: "success",

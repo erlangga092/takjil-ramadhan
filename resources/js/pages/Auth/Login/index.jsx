@@ -1,8 +1,12 @@
+import {
+  AuthHeader,
+  AuthHeaderCard,
+  ButtonAuth,
+  InputAuth,
+} from "@/components";
+import { LayoutAuth } from "@/layouts";
 import { Head, Link, useForm } from "@inertiajs/react";
 import React from "react";
-import { AuthHeaderCard, ButtonAuth, InputAuth } from "../../../components";
-import AuthHeader from "../../../components/atoms/AuthHeader";
-import { LayoutAuth } from "../../../layouts";
 
 const Login = ({ session, errors, auth }) => {
   const { setData, post } = useForm({

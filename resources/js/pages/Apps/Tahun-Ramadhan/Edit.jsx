@@ -4,7 +4,7 @@ import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const Edit = ({ tahun_ramadhan }) => {
+const Edit = ({ tahun_ramadhan, errors }) => {
   const [form, setForm] = useState(() => {
     return {
       name: tahun_ramadhan?.name,

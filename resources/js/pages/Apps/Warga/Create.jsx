@@ -1,8 +1,8 @@
+import { AppHeaderCard, InputApp } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { AppHeaderCard, InputApp } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
 const Warga = ({ masjids, rts, errors }) => {
   const [form, setForm] = useState(() => {
@@ -19,10 +19,18 @@ const Warga = ({ masjids, rts, errors }) => {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Rt saved successfully.",
+          text: "Warga saved successfully.",
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "failed",
+          showConfirmButton: true,
         });
       },
     });

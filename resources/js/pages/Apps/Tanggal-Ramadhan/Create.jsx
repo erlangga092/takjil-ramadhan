@@ -1,11 +1,11 @@
+import { AppHeaderCard } from "@/components";
+import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
-import { AppHeaderCard } from "../../../components";
-import { LayoutApp } from "../../../layouts";
 
-const Warga = ({ takjil, errors }) => {
+const Create = ({ takjil, errors }) => {
   const [form, setForm] = useState(() => {
     return {
       tanggal: new Date(),
@@ -19,10 +19,18 @@ const Warga = ({ takjil, errors }) => {
       onSuccess: () => {
         Swal.fire({
           title: "Success!",
-          text: "Rt saved successfully.",
+          text: "Tanggal ramadhan saved successfully.",
           icon: "success",
           showConfirmButton: false,
           timer: 1000,
+        });
+      },
+      onError: (errors) => {
+        Swal.fire({
+          title: "Failed!",
+          text: errors[0],
+          icon: "failed",
+          showConfirmButton: true,
         });
       },
     });
@@ -85,4 +93,4 @@ const Warga = ({ takjil, errors }) => {
   );
 };
 
-export default Warga;
+export default Create;

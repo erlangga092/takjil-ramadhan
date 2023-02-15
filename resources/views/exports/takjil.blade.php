@@ -68,11 +68,11 @@
 <body>
   <section>
     <div class="title" style="padding-bottom: 15px">
-      <div style="text-align: center;text-transform: uppercase;font-size: 15px">
-        MASJID AL-IMAN
+      <div style="text-align: center;text-transform: uppercase; font-style: bold;">
+        JADWAL TAKJIL RAMADHAN 2023M/1444H
       </div>
-      <div style="text-align: center">
-        Alamat: Godengan RT 3/14, Wirun, Mojolaban, Sukoharjo
+      <div style="text-align: center;text-transform: uppercase; font-style: bold;">
+        MASJID AL - IMAN GODEGAN
       </div>
     </div>
 
@@ -82,8 +82,8 @@
           <table>
             <thead>
               <tr>
-                <th>Hari</th>
-                <th>Nama</th>
+                <th>HARI/TANGGAL</th>
+                <th>NAMA</th>
                 <th>RT/RW</th>
               </tr>
             </thead>

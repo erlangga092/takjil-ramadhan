@@ -12,6 +12,7 @@ const FormSearch = ({
   onDeleteAll,
   onEnrolle,
   onBack = "",
+  pdfLink = "",
 }) => {
   return (
     <form onSubmit={onSearch}>
@@ -20,6 +21,15 @@ const FormSearch = ({
           <Link href={onBack} className="btn btn-info input-group-text">
             <i className="fa fa-arrow-left"></i> BACK
           </Link>
+        )}
+        {pdfLink != "" && (
+          <a
+            href={pdfLink}
+            className="btn btn-info input-group-text"
+            target="_blank"
+          >
+            <i className="fa fa-file-pdf"></i> PDF
+          </a>
         )}
         {addLink != "" && (
           <Link href={addLink} className="btn btn-primary input-group-text">

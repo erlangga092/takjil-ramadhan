@@ -5,7 +5,6 @@ import React from "react";
 import Swal from "sweetalert2";
 
 const Show = ({ takjil }) => {
-  console.log(takjil);
   const onDestroy = (e, ID) => {
     e.preventDefault();
     Swal.fire({
@@ -98,11 +97,8 @@ const Show = ({ takjil }) => {
                       placeholder="search by rt name..."
                       onChange={(e) => setData("search", e.target.value)}
                       addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/create`}
+                      pdfLink={`/apps/takjils/${takjil?.id}/pdf`}
                     />
-                    <a href={`/apps/takjils/${takjil?.id}/pdf`} target="_blank">
-                      {" "}
-                      PDF
-                    </a>
                     <div className="table-responsive">
                       <table className="table table-hover">
                         <thead>
@@ -133,9 +129,6 @@ const Show = ({ takjil }) => {
                                     className="btn btn-primary btn-sm me-2"
                                   >
                                     <i className="fa fa-plus-circle me-1"></i>
-                                  </Link>
-                                  <Link className="btn btn-success btn-sm me-2">
-                                    <i className="fa fa-pencil-alt me-1"></i>
                                   </Link>
                                   <button
                                     className="btn btn-danger btn-sm"
