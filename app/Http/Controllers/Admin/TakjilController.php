@@ -228,20 +228,14 @@ class TakjilController extends Controller
         $data = array_group_by($value, "tanggal");
         $length = 6;
         $data_split = array();
-
         $k = 0;
 
         foreach ($data as $key => $item) {
-            $data_split[$k][$key] = $data[$key];
+            $data_split[$k][$key] = $item;
             if (count($data_split[$k]) > $length) {
                 $k++;
-                $data_split[$k][$key] = $data[$key];
             }
         }
-
-        // return response()->json([
-        //     'data' => $data_split
-        // ]);
 
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("exports.takjil", compact('data_split'));
         $pdf->setPaper('A4', 'portrait');
@@ -251,7 +245,5 @@ class TakjilController extends Controller
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'inline; filename="takjil.pdf"',
         ]);
-
-        // return $pdf->download('takjil.pdf');
     }
 }
