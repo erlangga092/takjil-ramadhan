@@ -10,7 +10,7 @@ class WargaController extends Controller
     public function index()
     {
         $wargas = \App\Models\Warga::when(request()->q, function ($value) {
-            return $value->where('name', 'LIKE', '%', request()->q . '%');
+            return $value->where('name', 'LIKE', '%' . request()->q . '%');
         })->with('rt', 'rt.rw', 'rt.rw.dusun', 'masjid')->latest()->paginate(10);
 
         return \Inertia\Inertia::render('Apps/Warga/index', compact('wargas'));

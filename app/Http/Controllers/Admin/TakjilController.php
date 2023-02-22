@@ -211,22 +211,22 @@ class TakjilController extends Controller
     public function pdf(\App\Models\Takjil $takjil)
     {
         $value = DB::select(DB::raw("SELECT
-            tr.tanggal as tanggal,
-            t.id as t_id,
-            w.name as warga,
-            rt.name as RT,
-            rw.name as RW
-        from takjil_group as tg
-            JOIN takjil as t on t.id = tg.takjil_id
-            JOIN tanggal_ramadhan as tr on tg.tanggal_ramadhan_id = tr.id
-            JOIN warga as w on w.id = tg.warga_id
-            JOIN rt on rt.id = w.rt_id
-            JOIN rw on rw.id = rt.rw_id
-        WHERE t.id = 1
-        ORDER BY tanggal ASC"));
+        tr.tanggal as tanggal,
+        t.id as t_id,
+        w.name as warga,
+        rt.name as RT,
+        rw.name as RW
+    from takjil_group as tg
+        JOIN takjil as t on t.id = tg.takjil_id
+        JOIN tanggal_ramadhan as tr on tg.tanggal_ramadhan_id = tr.id
+        JOIN warga as w on w.id = tg.warga_id
+        JOIN rt on rt.id = w.rt_id
+        JOIN rw on rw.id = rt.rw_id
+    WHERE t.id = 1
+    ORDER BY tanggal ASC"));
 
         $data = array_group_by($value, "tanggal");
-        $length = 6;
+        $length = 7;
         $data_split = array();
         $k = 0;
 

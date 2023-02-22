@@ -1,18 +1,18 @@
 import { AppHeaderCard, FormSearch, Pagination } from "@/components";
 import { LayoutApp } from "@/layouts";
-import { Head, Link, router, useForm } from "@inertiajs/react";
-import React from "react";
+import { Head, Link, router } from "@inertiajs/react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 const Warga = ({ wargas }) => {
-  const { data, setData } = useForm({
-    search: "" || new URL(document.location).searchParams.get("q"),
-  });
+  const [search, setSearch] = useState(
+    "" || new URL(document.location).searchParams.get("q")
+  );
 
   const onSearch = (e) => {
     e.preventDefault();
     router.get("/apps/wargas", {
-      q: data.search,
+      q: search,
     });
   };
 
@@ -79,7 +79,7 @@ const Warga = ({ wargas }) => {
                   <div className="card-body">
                     <FormSearch
                       placeholder="search by warga name..."
-                      onChange={(e) => setData("search", e.target.value)}
+                      onChange={(e) => setSearch(e.target.value)}
                       onSearch={onSearch}
                       onReset={onReset}
                       addLink="/apps/wargas/create"
