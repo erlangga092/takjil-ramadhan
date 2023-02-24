@@ -90,7 +90,8 @@
             <tbody>
               @foreach ($item as $key_two => $item_two)
                 <tr>
-                  <td>{{ \Carbon\Carbon::create($key_two)->isoFormat('dddd, D MMMM Y') }}</td>
+                  <td style="text-transform: uppercase">
+                    {{ \Carbon\Carbon::create($key_two)->isoFormat('dddd, D MMMM Y') }}</td>
                   <td>
                     @foreach ($item_two as $v)
                       <p>{{ $v->warga }}</p>

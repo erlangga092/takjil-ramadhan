@@ -94,7 +94,7 @@ const Show = ({ takjil }) => {
                   />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by rt name..."
+                      placeholder="search by tanggal..."
                       onChange={(e) => setData("search", e.target.value)}
                       addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/create`}
                       pdfLink={`/apps/takjils/${takjil?.id}/pdf`}

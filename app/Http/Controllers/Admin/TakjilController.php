@@ -134,11 +134,12 @@ class TakjilController extends Controller
     {
         $tanggal_ramadhan = \App\Models\TanggalRamadhan::findOrFail($id);
         $wargas_enrolled = \App\Models\TakjilGroup::where('takjil_id', $takjil->id)
-            // ->where('tanggal_ramadhan_id', $tanggal_ramadhan->id)
             ->pluck('warga_id')
             ->all();
 
-        $wargas = \App\Models\Warga::with('rt', 'rt.rw')
+        $wargas = \App\Models\Warga::when(request()->q, function ($value) {
+            return $value->where('name', 'like', '%' . request()->q . '%');
+        })->with('rt', 'rt.rw')
             ->where('masjid_id', $takjil->masjid->id)
             ->whereNotIn('id', $wargas_enrolled)
             ->paginate(10);

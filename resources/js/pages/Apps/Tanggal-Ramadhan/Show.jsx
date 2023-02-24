@@ -180,7 +180,7 @@ const Show = ({ tanggal_ramadhan, takjil }) => {
                   <AppHeaderCard title="ENROLLE WARGA" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by rt name..."
+                      placeholder="search by tanggal..."
                       onChange={(e) => setData("search", e.target.value)}
                       addLink={`/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}/create`}
                       onDeleteAll={onDeleteAll}
@@ -212,6 +212,7 @@ const Show = ({ tanggal_ramadhan, takjil }) => {
                                     type="checkbox"
                                     className="form-check check-derolle"
                                     onChange={(e) => onCheck(e)}
+                                    value={v?.id}
                                   />
                                 </td>
                                 <td>{v?.warga?.name}</td>

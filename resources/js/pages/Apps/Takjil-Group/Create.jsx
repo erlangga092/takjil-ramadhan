@@ -1,15 +1,39 @@
-import { AppHeaderCard, Pagination, FormSearch } from "@/components";
+import { AppHeaderCard, FormSearch, Pagination } from "@/components";
 import { LayoutApp } from "@/layouts";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 const Show = ({ errors, wargas, takjil, tanggal_ramadhan }) => {
+  const [search, setSearch] = useState(
+    "" || new URL(window.document.location).searchParams.get("q")
+  );
+
   const [form, setForm] = useState({
     takjil_id: takjil?.id,
     tanggal_ramadhan_id: tanggal_ramadhan?.id,
     warga_id: [],
   });
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    router.get(
+      `/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}/create`,
+      {
+        q: search,
+      }
+    );
+  };
+
+  const onReset = (e) => {
+    e.preventDefault();
+    router.get(
+      `/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}/create`,
+      {
+        q: "",
+      }
+    );
+  };
 
   const onCheck = (e) => {
     setForm({
@@ -97,8 +121,10 @@ const Show = ({ errors, wargas, takjil, tanggal_ramadhan }) => {
                   <AppHeaderCard title="ENROLLE WARGA" icon="fa fa-folder" />
                   <div className="card-body">
                     <FormSearch
-                      placeholder="search by rt name..."
-                      onChange={(e) => setData("search", e.target.value)}
+                      placeholder="search by name..."
+                      onChange={(e) => setSearch(e.target.value)}
+                      onSearch={onSearch}
+                      onReset={onReset}
                       onEnrolle={(e) => onEnrolle(e)}
                       isError={errors?.warga_id}
                       onBack={`/apps/takjils/${takjil.id}/tanggal-ramadhans/${tanggal_ramadhan.id}`}
