@@ -149,7 +149,7 @@ class PiketController extends Controller
     {
         $this->validate($request, [
             'piket_id' => 'required|exists:piket,id',
-            'tanggal_piket_id' => 'required|exists:tanggal_pikets,id',
+            'tanggal_piket_id' => 'required|exists:tanggal_piket,id',
             'petugas_id' => 'required|exists:petugas,id',
         ]);
 
@@ -165,7 +165,7 @@ class PiketController extends Controller
             ]);
         }
 
-        return redirect()->route('apps.pikets.ranggal-pikets.showEnrollePetugas', [
+        return redirect()->route('apps.pikets.tanggal-pikets.showEnrollePetugas', [
             'piket' => $piket->id,
             'tanggal_piket' => $tanggal_piket->id
         ]);
