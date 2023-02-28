@@ -205,6 +205,18 @@ const LayoutSidebar = () => {
           </Link>
         </li>
 
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/pikets") ? "active" : ""
+            }`}
+            href="/apps/pikets"
+          >
+            <CategorySVG />
+            <span className="ms-2">Piket</span>
+          </Link>
+        </li>
+
         {/* <li className="c-sidebar-nav-title">REPORTS</li>
 
         <li className="c-sidebar-nav-item">
