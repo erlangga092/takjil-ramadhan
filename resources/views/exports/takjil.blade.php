@@ -5,12 +5,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+  {{-- <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet"> --}}
+  {{-- <link href="https://fonts.cdnfonts.com/css/verdana" rel="stylesheet"> --}}
+  {{-- <link href="https://fonts.cdnfonts.com/css/arial" rel="stylesheet"> --}}
+
 </head>
 <title>Document</title>
 <style>
+  @import url('https://fonts.cdnfonts.com/css/arial');
+
   body {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Arial', sans-serif;
   }
 
   * {
@@ -28,22 +33,10 @@
 
   tr>td>p {
     line-height: 0.6;
+    font-family: 'Arial', sans-serif;
   }
 
-  .circle {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 50%;
-  }
-
-  .section-table {
-    width: 50%;
-  }
-
-  * {
+  / * {
     box-sizing: border-box;
   }
 
@@ -83,7 +76,7 @@
             <thead>
               <tr>
                 <th>HARI/TANGGAL</th>
-                <th>NAMA</th>
+                <th colspan="2">NAMA</th>
                 <th>RT/RW</th>
               </tr>
             </thead>
@@ -91,10 +84,12 @@
               @foreach ($item as $key_two => $item_two)
                 <tr>
                   <td style="text-transform: uppercase">
-                    {{ \Carbon\Carbon::create($key_two)->isoFormat('dddd, D MMMM Y') }}</td>
-                  <td>
+                    <p>{{ \Carbon\Carbon::create($key_two)->isoFormat('dddd,') }}</p>
+                    <p>{{ \Carbon\Carbon::create($key_two)->isoFormat('D MMMM Y') }}</p>
+                  </td>
+                  <td colspan="2">
                     @foreach ($item_two as $v)
-                      <p>{{ $v->warga }}</p>
+                      <p class="warga" style="text-transform: capitalize !important">{{ $v->warga }}</p>
                     @endforeach
                   </td>
                   <td style="text-align: center">

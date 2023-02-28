@@ -141,7 +141,7 @@ const LayoutSidebar = () => {
           </Link>
         </li>
 
-        <li className="c-sidebar-nav-title">RAMADHAN</li>
+        <li className="c-sidebar-nav-title">TAKJIL</li>
 
         <li className="c-sidebar-nav-item">
           <Link
@@ -188,6 +188,20 @@ const LayoutSidebar = () => {
           >
             <CategorySVG />
             <span className="ms-2">Takjil</span>
+          </Link>
+        </li>
+
+        <li className="c-sidebar-nav-title">PIKET</li>
+
+        <li className="c-sidebar-nav-item">
+          <Link
+            className={`c-sidebar-nav-link ${
+              appsURL.startsWith("/apps/petugas") ? "active" : ""
+            }`}
+            href="/apps/petugas"
+          >
+            <CategorySVG />
+            <span className="ms-2">Petugas</span>
           </Link>
         </li>
 

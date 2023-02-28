@@ -75,5 +75,12 @@ Route::prefix("apps")->group(function () {
         Route::delete('/takjils/{takjil}/tanggal-ramadhans/{tanggal_ramadhan}/destroy-all', [\App\Http\Controllers\Admin\TakjilController::class, 'destroyEnrolleWargaAll'])->name('apps.takjils.tanggal-ramadhans.destroyEnrroleWargaAll');
 
         Route::get('/takjils/{takjil}/pdf', [\App\Http\Controllers\Admin\TakjilController::class, 'pdf'])->name('apps.takjils.pdf');
+
+        // petugas
+        Route::get("/petugas/import", [\App\Http\Controllers\Admin\PetugasController::class, "import"])->name('apps.petugas.import');
+
+        Route::post("/petugas/import/store", [\App\Http\Controllers\Admin\PetugasController::class, "storeImport"])->name('apps.petugas.storeImport');
+
+        Route::resource("/petugas", \App\Http\Controllers\Admin\PetugasController::class, ['as' => 'apps']);
     });
 });
