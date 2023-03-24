@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class PiketController extends Controller
 {
@@ -201,5 +203,45 @@ class PiketController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors($th->getMessage());
         }
+    }
+
+    public function pdf(\App\Models\Piket $piket)
+    {
+        $value = DB::select(DB::raw("SELECT
+        tp.tanggal as tanggal,
+        p.id as p_id,
+        pt.name as petugas,
+        rt.name as RT,
+        rw.name as RW
+    from piket_group as pg
+        JOIN piket as p on p.id = pg.piket_id
+        JOIN tanggal_piket as tp on pg.tanggal_piket_id = tp.id
+        JOIN petugas as pt on pt.id = pg.petugas_id
+        JOIN rt on rt.id = pt.rt_id
+        JOIN rw on rw.id = rt.rw_id
+    WHERE p.id = 1
+    ORDER BY tanggal ASC"));
+
+        $data = array_group_by($value, "tanggal");
+        $length = 8;
+        $data_split = array();
+        $k = 0;
+
+        foreach ($data as $key => $item) {
+            $data_split[$k][$key] = $item;
+            if (count($data_split[$k]) > $length) {
+                $k++;
+            }
+        }
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("exports.piket", compact('data_split'));
+        // $pdf->setPaper('F4', 'portrait');
+        $pdf->setPaper(array(0, 0, 609.449, 935.433), 'portrait');
+        $output = $pdf->output();
+
+        return new Response($output, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>  'inline; filename="piket.pdf"',
+        ]);
     }
 }

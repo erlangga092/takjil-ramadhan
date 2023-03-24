@@ -22,6 +22,11 @@ class TanggalRamadhan extends Model
         return $this->hasMany(\App\Models\TakjilGroup::class);
     }
 
+    public function piket_groups()
+    {
+        return $this->hasMany(\App\Models\PiketGroup::class);
+    }
+
     protected function tanggal(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(

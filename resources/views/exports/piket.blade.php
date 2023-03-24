@@ -63,7 +63,7 @@
   <section style="padding-top: 25px;">
     <div class="title" style="font-size: 14px;">
       <div style="text-align: center;text-transform: uppercase; font-style: bold; font-size: 14px;">
-        JADWAL TAKJIL RAMADHAN 2023M/1444H
+        JADWAL PIKET RAMADHAN 2023M/1444H
       </div>
       <div style="text-align: center;text-transform: uppercase; font-style: bold; font-size: 14px;">
         MASJID AL - IMAN GODEGAN
@@ -91,7 +91,7 @@
                   <td colspan="2" style="padding-right: 60px;">
                     @foreach ($item_two as $v)
                       <p class="warga" style="text-transform: capitalize !important;">
-                        {{ $v->warga }}</p>
+                        {{ $v->petugas }}</p>
                     @endforeach
                   </td>
                   <td style="text-align: center">

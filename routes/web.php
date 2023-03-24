@@ -101,6 +101,8 @@ Route::prefix("apps")->group(function () {
             Route::delete('/pikets/{piket}/tanggal-pikets/{tanggal_piket}/{piket_group}/destroy', [\App\Http\Controllers\Admin\PiketController::class, 'destroyEnrollePetugas'])->name('apps.pikets.tanggal-pikets.destroyEnrrolePetugas');
 
             Route::delete('/pikets/{piket}/tanggal-pikets/{tanggal_piket}/destroy-all', [\App\Http\Controllers\Admin\PiketController::class, 'destroyEnrollePetugasAll'])->name('apps.pikets.tanggal-pikets.destroyEnrrolePetugasAll');
+
+            Route::get('/pikets/{piket}/pdf', [\App\Http\Controllers\Admin\PiketController::class, 'pdf'])->name('apps.pikets.pdf');
         });
     });
 });

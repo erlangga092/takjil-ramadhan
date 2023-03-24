@@ -227,7 +227,7 @@ class TakjilController extends Controller
     ORDER BY tanggal ASC"));
 
         $data = array_group_by($value, "tanggal");
-        $length = 7;
+        $length = 8;
         $data_split = array();
         $k = 0;
 
@@ -239,7 +239,8 @@ class TakjilController extends Controller
         }
 
         $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("exports.takjil", compact('data_split'));
-        $pdf->setPaper('A4', 'portrait');
+        // $pdf->setPaper('F4', 'portrait');
+        $pdf->setPaper(array(0, 0, 609.449, 935.433), 'portrait');
         $output = $pdf->output();
 
         return new Response($output, 200, [
