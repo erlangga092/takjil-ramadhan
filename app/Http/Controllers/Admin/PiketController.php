@@ -137,7 +137,7 @@ class PiketController extends Controller
             return $value->where('name', 'like', '%' . request()->q . '%');
         })->with('rt', 'rt.rw')
             ->where('masjid_id', $piket->masjid->id)
-            ->whereNotIn('id', $petugas_enrolled)
+            // ->whereNotIn('id', $petugas_enrolled)
             ->paginate(10);
 
         return \Inertia\Inertia::render("Apps/Piket-Group/Create", [
@@ -223,7 +223,7 @@ class PiketController extends Controller
     ORDER BY tanggal ASC"));
 
         $data = array_group_by($value, "tanggal");
-        $length = 8;
+        $length = 7;
         $data_split = array();
         $k = 0;
 

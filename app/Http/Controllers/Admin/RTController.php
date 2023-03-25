@@ -11,7 +11,7 @@ class RTController extends Controller
     {
         $rts = \App\Models\Rt::when(request()->q, function ($value) {
             return $value->where('name', 'LIKE', '%' . request()->q . '%');
-        })->with('rw', 'rw.dusun', 'rw.dusun.kelurahan')->latest()->paginate(5);
+        })->with('rw', 'rw.dusun', 'rw.dusun.kelurahan')->latest()->paginate(10);
 
         return \Inertia\Inertia::render("Apps/Rt/index", compact('rts'));
     }
